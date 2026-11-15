@@ -55,3 +55,11 @@ Manual deploy, with the same credentials in your environment:
 npm run build
 npx wrangler@4 deploy
 ```
+
+## License
+
+Copyright (C) 2026 bludot / the boson authors
+
+Licensed under the [GNU Affero General Public License v3.0](LICENSE) only (`AGPL-3.0-only`).
+
+In plain English: if you run a modified version of this software as a network service, you must offer its source code to the people who use that service.
