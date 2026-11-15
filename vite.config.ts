@@ -1,5 +1,10 @@
 import { defineConfig, loadEnv } from 'vite';
 import preact from '@preact/preset-vite';
+import { fileURLToPath } from 'node:url';
+
+// `@boson/shared` used to be a monorepo workspace package; it now lives in
+// ./shared (a vendored copy of the bits this site uses).
+const sharedSrc = fileURLToPath(new URL('./shared/src', import.meta.url));
 
 export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd(), '');
@@ -11,6 +16,12 @@ export default defineConfig(({ mode }) => {
   const apiUrl = env.VITE_BOSON_API_URL ?? 'https://api.boson.chat';
   return {
     plugins: [preact()],
+    resolve: {
+      alias: [
+        { find: /^@boson\/shared$/, replacement: `${sharedSrc}/index.ts` },
+        { find: /^@boson\/shared\/(.*)$/, replacement: `${sharedSrc}/$1` },
+      ],
+    },
     server: {
       port: 5174,
       strictPort: false,
