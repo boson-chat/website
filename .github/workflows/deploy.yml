@@ -1,5 +1,5 @@
-# Builds the marketing site (website/) and ships it to the Cloudflare Worker
-# `boson-chat` (Workers Static Assets, configured in website/wrangler.toml).
+# Typechecks + builds the marketing site and ships it to the Cloudflare
+# Worker `boson-chat` (Workers Static Assets, configured in wrangler.toml).
 # The custom domain attached to that Worker stays in place — no DNS changes
 # required between releases.
 #
@@ -12,6 +12,10 @@
 #                    with every PR's code.)
 #   PR from a fork → build only: forks get no secrets.
 #
+# If CLOUDFLARE_API_TOKEN is not set (before the repo owner adds it, or on
+# a fork) the deploy/preview jobs skip their wrangler steps with a notice
+# instead of failing, so CI stays green on the build alone.
+#
 # Required secrets:
 #   - CLOUDFLARE_API_TOKEN  : API token with "Workers Scripts — Edit"
 #                             (Account scope) + "User Details — Read".
@@ -20,7 +24,11 @@
 #   - CLOUDFLARE_ACCOUNT_ID : 32-char hex account ID (no dashes), copy
 #                             from the dash.cloudflare.com URL after
 #                             logging in.
-name: Deploy website
+#
+# No build-time env is needed: the site defaults to https://api.boson.chat
+# and https://directory.boson.chat (VITE_BOSON_API_URL / VITE_DIRECTORY_URL
+# override them for local experiments).
+name: Deploy
 
 on:
   push:
@@ -32,7 +40,7 @@ permissions:
   contents: read
 
 concurrency:
-  group: deploy-website-${{ github.ref }}
+  group: deploy-${{ github.ref }}
   cancel-in-progress: true
 
 env:
@@ -51,13 +59,14 @@ jobs:
           node-version: '24'
           cache: npm
       - run: npm ci
+      - name: typecheck
+        run: npm run typecheck
       - name: build
-        working-directory: website
         run: npm run build
       - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
         with:
-          name: website-dist
-          path: website/dist
+          name: dist
+          path: dist
           retention-days: 7
           # dist/.well-known/boson.json (client discovery) is a dot-directory;
           # upload-artifact skips hidden files unless told otherwise.
@@ -71,19 +80,26 @@ jobs:
     environment:
       name: production
       url: https://boson.chat
+    env:
+      CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
     steps:
+      - name: Check Cloudflare credentials
+        if: env.CLOUDFLARE_API_TOKEN == ''
+        run: echo "::notice::CLOUDFLARE_API_TOKEN is not set; skipping deploy."
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        if: env.CLOUDFLARE_API_TOKEN != ''
       - uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4.3.0
+        if: env.CLOUDFLARE_API_TOKEN != ''
         with:
-          name: website-dist
-          path: website/dist
+          name: dist
+          path: dist
       - name: Deploy
+        if: env.CLOUDFLARE_API_TOKEN != ''
         uses: cloudflare/wrangler-action@da0e0dfe58b7a431659754fdf3f186c529afbe65 # v3.14.1
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           wranglerVersion: ${{ env.WRANGLER_VERSION }}
-          workingDirectory: website
           command: deploy
 
   preview:
@@ -94,25 +110,33 @@ jobs:
       github.event_name == 'pull_request' &&
       github.event.pull_request.head.repo.full_name == github.repository
     runs-on: ubuntu-latest
+    env:
+      CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
     steps:
+      - name: Check Cloudflare credentials
+        if: env.CLOUDFLARE_API_TOKEN == ''
+        run: echo "::notice::CLOUDFLARE_API_TOKEN is not set; skipping preview upload."
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        if: env.CLOUDFLARE_API_TOKEN != ''
       - uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4.3.0
+        if: env.CLOUDFLARE_API_TOKEN != ''
         with:
-          name: website-dist
-          path: website/dist
+          name: dist
+          path: dist
       - name: Upload preview version
         id: upload
+        if: env.CLOUDFLARE_API_TOKEN != ''
         uses: cloudflare/wrangler-action@da0e0dfe58b7a431659754fdf3f186c529afbe65 # v3.14.1
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           wranglerVersion: ${{ env.WRANGLER_VERSION }}
-          workingDirectory: website
           command: >-
             versions upload
             --preview-alias pr-${{ github.event.pull_request.number }}
             --message "PR #${{ github.event.pull_request.number }}"
       - name: Preview URL
+        if: env.CLOUDFLARE_API_TOKEN != ''
         env:
           OUTPUT: ${{ steps.upload.outputs.command-output }}
         run: |

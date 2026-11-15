@@ -3,7 +3,7 @@
 /* ─────────────────────────────────────────────────────────────────────────
  * Website-local extensions on top of the shared design tokens.
  * Aliases keep the names used in the existing marketing CSS while the
- * canonical values come from @boson/shared/design-system/tokens.css.
+ * canonical values come from @boson/shared/design-system/tokens.css (shared/src/design-system/tokens.css).
  * ─────────────────────────────────────────────────────────────────── */
 :root {
   /* Surface aliases used in the marketing pages */

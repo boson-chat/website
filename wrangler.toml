@@ -2,7 +2,7 @@
 # Assets (no script needed, just the built Vite output). Deploys to the
 # existing `boson-chat` Worker so the custom domain on that service stays
 # attached. Switch back to Pages by deleting this file and reverting
-# .github/workflows/deploy-website.yml to `wrangler pages deploy`.
+# .github/workflows/deploy.yml to `wrangler pages deploy`.
 
 name = "boson-chat"
 compatibility_date = "2024-12-01"
