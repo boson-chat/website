@@ -222,3 +222,29 @@
   .mobile-menu-cta { transform: none !important; transition-delay: 0s !important; }
   .topnav-burger-line { transition-duration: 0s !important; }
 }
+
+/* "Run an IRC server?" strip above the header on every page but /operators.
+   Not sticky: it scrolls away and the header stays. */
+.opbar {
+  border-bottom: 1px solid var(--border);
+  background: var(--surface);
+  font-size: 13px;
+}
+.opbar-inner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 4px 10px;
+  min-height: 36px;
+  padding-block: 7px;
+  text-align: center;
+}
+.opbar-ask { color: var(--fg); font-weight: 600; }
+.opbar-pitch { color: var(--fg-2); }
+.opbar-link { color: var(--accent); white-space: nowrap; }
+.opbar-link::after { content: '\00a0→'; display: inline-block; transition: transform 150ms var(--ease); }
+.opbar-link:hover::after { transform: translateX(3px); }
+@media (max-width: 640px) {
+  .opbar-pitch { display: none; }
+}
