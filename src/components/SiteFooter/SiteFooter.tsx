@@ -12,7 +12,7 @@ export function SiteFooter() {
               <span>Boson</span>
             </a>
             <p class="foot-tag">
-              Desktop chat for IRC servers. Identity in the client, plumbing in the open.
+              Chat, voice and video for IRC servers. Identity in the client, plumbing in the open.
             </p>
           </div>
           <div class="foot-col">

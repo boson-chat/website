@@ -120,3 +120,9 @@
 
 .download-cta { text-align: center; }
 .download-cta .container { max-width: 640px; }
+
+.dl-grid-phones { grid-template-columns: repeat(2, 1fr); max-width: 760px; }
+@media (max-width: 920px) {
+  .dl-grid-phones { grid-template-columns: 1fr; }
+}
+.dl-card > .bds-badge { align-self: flex-start; }

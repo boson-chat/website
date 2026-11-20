@@ -42,3 +42,17 @@
 .cta-row .hero-cta {
   flex-wrap: wrap;
 }
+
+/* Two phone-size shots side by side. */
+.features-phones {
+  display: flex;
+  gap: var(--gap-lg, 32px);
+  justify-content: flex-start;
+}
+.features-phones .shot-figure {
+  width: 260px;
+  max-width: calc(50% - 12px);
+}
+@media (max-width: 480px) {
+  .features-phones { gap: 16px; }
+}

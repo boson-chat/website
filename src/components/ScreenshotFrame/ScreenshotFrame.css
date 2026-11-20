@@ -34,6 +34,12 @@
     radial-gradient(circle 5px at 50px 13px, var(--frame-g) 99%, transparent 100%);
 }
 
+.shot-phone {
+  border-radius: 34px;
+  border: 7px solid var(--frame-bar);
+  outline: 1px solid var(--frame-border);
+}
+
 .shot-caption {
   font-family: var(--font-mono);
   font-size: 12px;
