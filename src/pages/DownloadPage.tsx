@@ -4,7 +4,7 @@ import { Terminal, Line, C } from '../components/Terminal/Terminal';
 import { useLatestRelease } from '../hooks/useLatestRelease';
 import './DownloadPage.css';
 
-type DetectedOS = 'mac' | 'windows' | 'linux' | null;
+type DetectedOS = 'mac' | 'windows' | 'linux' | 'android' | 'ios' | null;
 
 /**
  * Best-effort OS detection from navigator. Runs after hydration so the
@@ -18,6 +18,9 @@ function detectOS(): DetectedOS {
   const uaData = (navigator as Navigator & { userAgentData?: { platform?: string } }).userAgentData;
   const platform = (uaData?.platform ?? navigator.platform ?? '').toLowerCase();
   const ua = (navigator.userAgent ?? '').toLowerCase();
+  // Phones first: Android reports Linux, and iOS says "like Mac OS X".
+  if (platform.includes('android') || ua.includes('android')) return 'android';
+  if (/iphone|ipad|ipod/.test(ua) || (platform.includes('mac') && navigator.maxTouchPoints > 1)) return 'ios';
   if (platform.includes('mac') || ua.includes('mac os')) return 'mac';
   if (platform.includes('win') || ua.includes('windows')) return 'windows';
   if (platform.includes('linux') || ua.includes('linux')) return 'linux';
@@ -55,10 +58,10 @@ export function DownloadPage() {
           <p class="eyebrow">
             Download · v{release.version}{release.releaseDate ? ` · ${release.releaseDate}` : ''}
           </p>
-          <h1>Get the Boson desktop client.</h1>
+          <h1>Get Boson.</h1>
           <p class="lead" style="margin-top: 20px;">
-            A native app for macOS, Windows, and Linux, with the Go IRC engine built in. Pick
-            your platform; assets live on the GitHub release page.
+            A native app for macOS, Windows, and Linux — and Android — with the Go IRC engine
+            built in. Pick your platform; assets live on the GitHub release page.
           </p>
         </div>
       </section>
@@ -129,8 +132,52 @@ export function DownloadPage() {
               github.com/boson-chat/boson
             </a>{' '}
             · <a class="num" href={releaseUrl} rel="noopener">v{release.version}</a>
-            {release.releaseDate ? ` tagged ${release.releaseDate}` : ''} · MIT
+            {release.releaseDate ? ` tagged ${release.releaseDate}` : ''} · AGPL-3.0
           </p>
+        </div>
+      </section>
+
+      <section class="section" id="phones">
+        <div class="container stack" style="gap: 40px;">
+          <div style="max-width: 46ch;">
+            <p class="eyebrow">On your phone</p>
+            <h2>Android now. iOS later.</h2>
+          </div>
+          <div class="dl-grid dl-grid-phones">
+            <article class={wrapClass('android')}>
+              <Card variant={cardVariant('android')}>
+                <div class="dl-card">
+                  <AndroidIcon />
+                  {recommended('android')}
+                  <h3>Android</h3>
+                  <span class="dl-arch">8.0+ · arm64 or x86_64</span>
+                  <div class="dl-actions">
+                    <a class="btn btn-primary" href={DL('Boson-android.apk')} rel="noopener">
+                      Download (.apk)
+                    </a>
+                  </div>
+                  <span class="dl-bytes">
+                    Not on Google Play yet: allow installs from your browser or file manager when
+                    Android asks. Later updates install from inside the app.
+                  </span>
+                </div>
+              </Card>
+            </article>
+            <article class="dl-card-wrap">
+              <Card>
+                <div class="dl-card">
+                  <AppleMobileIcon />
+                  <Badge tone="warn">In testing</Badge>
+                  <h3>iPhone &amp; iPad</h3>
+                  <span class="dl-arch">iOS 16+</span>
+                  <span class="dl-bytes">
+                    The iOS app is being tested and isn't available to install yet — no App Store
+                    or TestFlight link for now.
+                  </span>
+                </div>
+              </Card>
+            </article>
+          </div>
         </div>
       </section>
 
@@ -148,6 +195,7 @@ export function DownloadPage() {
                 <li>250 MB free disk</li>
                 <li>Keychain access for credential storage</li>
                 <li>Outbound TCP/TLS to your servers (port 6697 by default)</li>
+                <li>Microphone / camera permission for calls</li>
               </ul>
             </div>
             <div>
@@ -277,10 +325,10 @@ export function DownloadPage() {
             <ReleaseRow
               date={release.releaseDate || '—'}
               title={`v${release.version} — latest`}
-              platforms="all platforms"
+              platforms="macOS · Windows · Linux · Android"
             >
-              The current desktop build. Multi-server IRC chat, server directory, guest mode,
-              with the Go IRC engine built in. See the{' '}
+              The current build for desktop and Android. Multi-server IRC chat, server directory,
+              voice and video channels, uploads, guest mode, with the Go IRC engine built in. See the{' '}
               <a href={releaseUrl} rel="noopener">release page</a> for the full asset list and
               the changelog entry for what's new.
             </ReleaseRow>
@@ -292,8 +340,8 @@ export function DownloadPage() {
         <div class="container">
           <h2 style="margin-bottom: 20px;">Ready when you are.</h2>
           <p class="lead" style="margin-bottom: 32px;">
-            The desktop client is the same on every platform — pick whichever download matches
-            the machine you're on.
+            The app is the same on every platform — pick whichever download matches the device
+            you're on.
           </p>
           <div class="hero-cta" style="justify-content: center;">
             <a class="btn btn-primary" href={LATEST_URL} rel="noopener">
@@ -333,6 +381,26 @@ function MacIcon() {
   return (
     <svg class="os-mark" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
       <path d="M16.4 1.2c0 1-.4 2-1 2.7-.7.8-1.8 1.4-2.9 1.3-.1-1 .4-2 1-2.7.7-.8 1.9-1.4 2.9-1.3zM20 17.6c-.6 1.4-1 2-1.7 3.2-1 1.7-2.4 3.7-4.1 3.7-1.5 0-1.9-.9-3.9-.9-2 0-2.5.9-3.9.9-1.7 0-3-1.9-4-3.6-2.7-4.4-3-9.5-1.3-12.2 1.2-1.9 3-3 4.8-3 1.7 0 2.8 1 4.3 1 1.4 0 2.2-1 4.3-1 1.6 0 3.2.9 4.4 2.4-3.8 2.1-3.2 7.6.1 9.5z" />
+    </svg>
+  );
+}
+
+function AndroidIcon() {
+  return (
+    <svg class="os-mark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <path d="M5 16V11a7 7 0 0 1 14 0v5z" />
+      <path d="M8 4.5 6.5 2.5M16 4.5l1.5-2M5 16v3.5M19 16v3.5M9.5 16v4.5M14.5 16v4.5" />
+      <circle cx="9.5" cy="10" r="0.7" fill="currentColor" />
+      <circle cx="14.5" cy="10" r="0.7" fill="currentColor" />
+    </svg>
+  );
+}
+
+function AppleMobileIcon() {
+  return (
+    <svg class="os-mark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <rect x="6.5" y="2" width="11" height="20" rx="2.5" />
+      <path d="M11 18.5h2" />
     </svg>
   );
 }

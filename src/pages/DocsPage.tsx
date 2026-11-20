@@ -13,6 +13,8 @@ const DOC_SECTION_IDS = [
   'add-manual',
   'channels',
   'commands',
+  'voice',
+  'uploads',
   'themes',
   'host-start',
   'host-daemon',
@@ -36,8 +38,8 @@ export function DocsPage() {
           <p class="eyebrow">Docs</p>
           <h1 style="max-width: 22ch;">How to use Boson — and how to plug your server in.</h1>
           <p class="lead" style="margin-top: 20px;">
-            Two parts: using the desktop client day-to-day, and listing your own IRC daemon in the
-            network directory at directory.boson.chat — or running a directory of your own.
+            Two parts: using the app day-to-day, and listing your own IRC daemon in the network
+            directory at directory.boson.chat.
           </p>
         </div>
       </section>
@@ -53,6 +55,8 @@ export function DocsPage() {
                 <li><a href="#add-manual"     class={linkClass('add-manual')}>Add a server manually</a></li>
                 <li><a href="#channels"       class={linkClass('channels')}>Channels &amp; DMs</a></li>
                 <li><a href="#commands"       class={linkClass('commands')}>Slash commands</a></li>
+                <li><a href="#voice"          class={linkClass('voice')}>Voice &amp; video</a></li>
+                <li><a href="#uploads"        class={linkClass('uploads')}>Uploading files</a></li>
                 <li><a href="#themes"         class={linkClass('themes')}>Themes &amp; customization</a></li>
               </ul>
               <h4>List in the directory</h4>
@@ -61,8 +65,8 @@ export function DocsPage() {
                 <li><a href="#host-daemon"   class={linkClass('host-daemon')}>Pick an IRCd</a></li>
                 <li><a href="#host-verify"   class={linkClass('host-verify')}>DNS TXT verification</a></li>
                 <li><a href="#host-register" class={linkClass('host-register')}>Submit to the directory</a></li>
-                <li><a href="#host-stack"    class={linkClass('host-stack')}>Boson stack fast path</a></li>
-                <li><a href="#host-own"      class={linkClass('host-own')}>Run your own directory</a></li>
+                <li><a href="#host-stack"    class={linkClass('host-stack')}>The Boson stack (coming soon)</a></li>
+                <li><a href="#host-own"      class={linkClass('host-own')}>Your own directory (coming soon)</a></li>
                 <li><a href="#host-health"   class={linkClass('host-health')}>Health &amp; re-verification</a></li>
               </ul>
               <h4>Reference</h4>
@@ -91,8 +95,10 @@ export function DocsPage() {
                 <p>
                   Grab the app for your platform from the <a href="/download" class="docs-link">downloads page</a>:
                   a <span class="num">.dmg</span> for macOS, a <span class="num">.zip</span> for
-                  Windows, a <span class="num">.tar.gz</span> for Linux. The desktop client has
-                  the IRC engine built in — Go code that handles all network I/O.
+                  Windows, a <span class="num">.tar.gz</span> for Linux, an{' '}
+                  <span class="num">.apk</span> for Android 8.0+. Every build has the IRC engine
+                  built in — Go code that handles all network I/O. The iOS app is in testing and
+                  not available yet.
                 </p>
                 <p>
                   On first launch, you have two paths:
@@ -242,8 +248,55 @@ export function DocsPage() {
                 </p>
               </article>
 
-              <article class="doc-section" id="themes">
+              <article class="doc-section" id="voice">
                 <p class="eyebrow">06</p>
+                <h2>Voice and video.</h2>
+                <p>
+                  Voice is per network: Boson finds a network's voice server through its{' '}
+                  <span class="num">/.well-known/boson.json</span>. When there is one, the channel
+                  list gets a <strong>Voice</strong> section, and voice channels that belong to a
+                  text channel sit under it. The faces next to a voice channel show who's in;
+                  click it to see a pre-join view, then <strong>Join</strong>.
+                </p>
+                <ScreenshotFrame
+                  src="/screenshots/feat-call.png"
+                  alt="A call in a voice channel: one camera large, the others in a strip, and who's in the call on the right"
+                  caption="A call in General, focus layout."
+                  width={1440}
+                  height={900}
+                />
+                <ul>
+                  <li><strong>Talking</strong> — open mic (with a sensitivity slider and a mic test) or push to talk, in <strong>User settings → Voice</strong>. Quality is Standard, High or Music.</li>
+                  <li><strong>Camera</strong> — every voice channel is also a video channel. Turn your camera on from the call controls; the stage shows one person large (click a tile to pin it) or a grid.</li>
+                  <li><strong>Screen sharing</strong> — desktop only. Pick a screen or window; on macOS 13+ you can share its sound as well.</li>
+                  <li><strong>Phones</strong> — the call bar sits over the chat; tap it for the call screen, with speaker or earpiece, camera flip and the people in the call. The call keeps going with the screen locked.</li>
+                  <li><strong>Guests</strong> — if a network allows guests in voice, people without an account can join too, marked <span class="num">guest</span>.</li>
+                </ul>
+                <div class="doc-callout">
+                  <strong>Use headphones on desktop.</strong> The desktop app doesn't cancel echo
+                  yet, so speakers feed the room back to everyone. On Android and iOS the phone's
+                  own voice processing cancels echo.
+                </div>
+              </article>
+
+              <article class="doc-section" id="uploads">
+                <p class="eyebrow">07</p>
+                <h2>Uploading files.</h2>
+                <p>
+                  Drop files on a channel, or use the paperclip in the composer (the{' '}
+                  <strong>+</strong> on phones). Boson opens an upload sheet: rename files, add a
+                  caption, and send up to 20 at once. The links are posted to the channel when the
+                  uploads finish, and images show inline.
+                </p>
+                <p class="muted">
+                  Files go to the network's own files host when it has one, and otherwise to the
+                  one that comes with your Boson account. The sheet shows how much of your rolling
+                  quota you've used.
+                </p>
+              </article>
+
+              <article class="doc-section" id="themes">
+                <p class="eyebrow">08</p>
                 <h2>Themes and customization.</h2>
                 <p>
                   Every colour in Boson comes from its theme, so one choice restyles the whole app.
@@ -259,6 +312,15 @@ export function DocsPage() {
                   caption="Settings → Appearance. Nord is selected."
                   maxWidth={768}
                 />
+
+                <h3>Network themes.</h3>
+                <p>
+                  A network can publish a theme of its own — colours for dark and light, a logo,
+                  pane backgrounds and a sign-in picture. While you're on that network, Boson shows
+                  it over your theme. Turn it off for every network with{' '}
+                  <strong>Use network themes</strong> in Appearance, or for one network from its
+                  icon's menu in the server rail.
+                </p>
 
                 <h3>Make your own.</h3>
                 <p>
@@ -346,8 +408,7 @@ export function DocsPage() {
                   Run an IRC server? Register it in the directory yourself at{' '}
                   <a href="https://directory.boson.chat" class="docs-link">directory.boson.chat</a>{' '}
                   or from the client, verified by a DNS TXT record, no human reviewer in the loop.
-                  The directory is federated: anyone running the Boson stack can run their own, and
-                  directories import each other's listings. Questions?{' '}
+                  Any IRC server that speaks SASL over TLS can be listed. Questions?{' '}
                   <a href="mailto:hi@boson.chat" class="docs-link">drop us a line</a>.
                 </p>
               </header>
@@ -493,44 +554,31 @@ export function DocsPage() {
 
               <article class="doc-section" id="host-stack">
                 <p class="eyebrow">05</p>
-                <h2>Boson stack fast path.</h2>
+                <h2>The Boson stack <Badge tone="warn">Coming soon</Badge></h2>
                 <p>
-                  If your network runs on the Boson stack, you don't need a Boson account to list
-                  it. The stack's admin panel registers the network with its own network key:
-                  open <strong>Directory</strong> in the admin panel, check the details, and add
-                  the TXT record it shows you. The verification is the same DNS check as above.
+                  boson.chat runs on a set of services we call the Boson stack: an Ergo IRC server,
+                  accounts with SSO and network roles, voice and video servers, file uploads, a
+                  directory, and an admin panel for users, invites, sign-in providers, network
+                  settings and service health. We're preparing it for others to run on their own
+                  domain.
                 </p>
                 <p class="muted">
-                  The stack points at <span class="num">directory.boson.chat</span> by default. Set{' '}
-                  <span class="num">DIRECTORY_API_URL</span> to register somewhere else, or{' '}
-                  <span class="num">DIRECTORY_REGISTRATION=false</span> to turn registration off.
+                  There's no supported way to install it yet, so there are no setup steps here.
+                  Until then, any IRC daemon from the list above works with Boson and can be listed
+                  in the directory.
                 </p>
               </article>
 
               <article class="doc-section" id="host-own">
                 <p class="eyebrow">06</p>
-                <h2>Run your own directory.</h2>
+                <h2>Your own directory <Badge tone="warn">Coming soon</Badge></h2>
                 <p>
-                  The directory is part of the Boson stack. Turn on its{' '}
-                  <span class="num">directory</span> profile and it serves the same website and API
-                  at <span class="num">directory.&lt;your domain&gt;</span>. Your members add it in
-                  the app under <strong>User settings → Directories</strong>.
+                  The directory is federated: directories can import each other's listings, and
+                  each one checks a server's <span class="num">_boson</span> TXT record itself
+                  before showing it as verified. Running a directory of your own will come with the
+                  Boson stack. You can already <em>browse</em> other directories — add one in{' '}
+                  <strong>User settings → Directories</strong>.
                 </p>
-                <p>
-                  <strong>The main directory is included by default.</strong> A new directory
-                  imports everything listed on <span class="num">directory.boson.chat</span>, so
-                  your users see the whole network plus your own listings. Imported listings only
-                  show as verified after your directory has checked each server's{' '}
-                  <span class="num">_boson</span> TXT record itself. To run an independent
-                  directory, set <span class="num">DIRECTORY_INCLUDE_MAIN=false</span>, or switch
-                  the main directory off on the Peers page or in the admin panel. You can add
-                  other directories as peers there too.
-                </p>
-                <div class="doc-callout">
-                  When two directories list the same server, a listing registered on your own
-                  directory wins over an imported one. Blocks you add apply to imported listings
-                  as well.
-                </div>
               </article>
 
               <article class="doc-section" id="host-health">
@@ -619,7 +667,7 @@ export function DocsPage() {
                   not police speech on your server — it polices presence on the directory.
                 </p>
                 <ul>
-                  <li><strong>Operator request.</strong> Remove the listing yourself on directory.boson.chat, in the app, or from the stack's admin panel.</li>
+                  <li><strong>Operator request.</strong> Remove the listing yourself on directory.boson.chat or in the app.</li>
                   <li><strong>Lapsed verification.</strong> TXT record missing for &gt; 14 days. Add it back and the listing returns at the next weekly check.</li>
                   <li><strong>Abuse.</strong> Repeated unreviewed reports tied to your server. We notify the contact address. Restoration is via the contact form.</li>
                 </ul>
@@ -635,7 +683,7 @@ export function DocsPage() {
 
       <section class="section cta-strip docs-cta">
         <div class="container">
-          <h2 style="margin-bottom: 16px;">The desktop client is live — and so is directory listing.</h2>
+          <h2 style="margin-bottom: 16px;">The app is live — and so is directory listing.</h2>
           <p class="lead">
             Install Boson, browse the directory, or register your own server at
             directory.boson.chat.

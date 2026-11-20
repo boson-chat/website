@@ -22,10 +22,10 @@ npm ci
 npm run dev        # http://localhost:5174
 ```
 
-In dev, `/servers` is proxied to `https://api.boson.chat` so the Discover
-page works without CORS. Set `VITE_BOSON_API_URL` (API) or
-`VITE_DIRECTORY_URL` (directory, default `https://directory.boson.chat`)
-in `.env.local` to point it elsewhere. Production builds need no env.
+The Discover page reads the public network directory's API
+(`/v1/networks`, `/v1/facets`), which answers any origin. Set
+`VITE_DIRECTORY_URL` (default `https://directory.boson.chat`) in
+`.env.local` to point it elsewhere. Production builds need no env.
 
 ## Build
 

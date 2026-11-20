@@ -46,6 +46,15 @@ export function SiteHeader() {
 
   return (
     <>
+      {path !== '/operators' && (
+        <aside class="opbar" aria-label="For IRC server operators">
+          <div class="container opbar-inner">
+            <span class="opbar-ask">Run an IRC server?</span>
+            <span class="opbar-pitch">Put it in the Boson directory and come say hi in #lobby.</span>
+            <a class="opbar-link" href="/operators">For operators</a>
+          </div>
+        </aside>
+      )}
       <header class="topnav">
         <div class="container topnav-inner">
           <a class="topnav-logo" href="/" aria-label="Boson — Home">

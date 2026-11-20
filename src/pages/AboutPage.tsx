@@ -166,10 +166,11 @@ export function AboutPage() {
               <h2 id="not-doing">What we're deliberately not doing.</h2>
               <ul>
                 <li>
-                  <strong>Voice, video, threads, reactions, slash-commands.</strong> IRC doesn't
-                  carry these. We are not going to build a parallel metadata layer that secretly
-                  turns Boson into a non-IRC service that happens to use IRC for text transport.
-                  That's a different product.
+                  <strong>A parallel metadata layer.</strong> Threads and reactions wait until IRC
+                  itself carries them. We are not going to build a hidden layer that secretly turns
+                  Boson into a non-IRC service that happens to use IRC for text transport. Voice and
+                  video, where a network offers them, run on separate open-source servers beside
+                  IRC — the text stays plain IRC, readable from any client.
                 </li>
                 <li>
                   <strong>Hosted IRC servers.</strong> The directory only indexes. We've sketched a
@@ -211,6 +212,22 @@ export function AboutPage() {
                     macOS &amp; Windows &amp; Linux installers.
                   </span>
                 </li>
+                <li class="shipped">
+                  <span class="when">Shipped</span>
+                  <span>
+                    <strong>v0.55 – v0.81 — talk, not just type.</strong> Voice channels on desktop
+                    and phones, cameras with lip sync, screen sharing on desktop, guests in calls,
+                    file uploads, network themes, channel registration, and an Android app (APK).
+                  </span>
+                </li>
+                <li>
+                  <span class="when">Soon</span>
+                  <span>
+                    <strong>The Boson stack and admin panel, for anyone.</strong> The server side
+                    boson.chat runs on — IRC, accounts, voice, video, files, a directory and an
+                    admin panel — packaged for your own domain. Coming soon; not installable yet.
+                  </span>
+                </li>
                 <li>
                   <span class="when">Next</span>
                   <span>
@@ -221,8 +238,8 @@ export function AboutPage() {
                 <li>
                   <span class="when">After</span>
                   <span>
-                    <strong>Notifications &amp; polish.</strong> Mention highlighting, system-tray
-                    presence, per-server mute, OS-level notifications with click-through.
+                    <strong>Phones, further.</strong> The iOS app out of testing, screen sharing from
+                    phones, and push notifications for mentions while the app is closed.
                   </span>
                 </li>
                 <li>
@@ -254,14 +271,14 @@ export function AboutPage() {
 
       <section class="section cta-strip about-cta">
         <div class="container">
-          <h2 style="margin-bottom: 16px;">Try the desktop client.</h2>
+          <h2 style="margin-bottom: 16px;">Try Boson.</h2>
           <p class="lead">
             A 110 MB download. About a minute from install to first message. Free, and if it ever
             isn't, we'll tell you on this page first.
           </p>
           <div class="hero-cta" style="justify-content: center;">
             <a class="btn btn-primary" href="/download">Download Boson</a>
-            <a class="btn btn-secondary" href="/docs">Self-host a server</a>
+            <a class="btn btn-secondary" href="/docs#host-start">List your server</a>
           </div>
         </div>
       </section>

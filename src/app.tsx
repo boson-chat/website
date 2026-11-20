@@ -7,6 +7,7 @@ import { DocsPage } from './pages/DocsPage';
 import { DownloadPage } from './pages/DownloadPage';
 import { FeaturesPage } from './pages/FeaturesPage';
 import { NotFoundPage } from './pages/NotFoundPage';
+import { OperatorsPage } from './pages/OperatorsPage';
 import { SiteHeader } from './components/SiteHeader/SiteHeader';
 import { SiteFooter } from './components/SiteFooter/SiteFooter';
 import { usePageTransitions } from './hooks/usePageTransitions';
@@ -41,6 +42,7 @@ function AppShell() {
           <Route path="/features" component={FeaturesPage} />
           <Route path="/docs" component={DocsPage} />
           <Route path="/download" component={DownloadPage} />
+          <Route path="/operators" component={OperatorsPage} />
           <Route default component={NotFoundPage} />
         </Router>
       </main>

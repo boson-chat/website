@@ -5,6 +5,7 @@ import { Step, Steps } from '../components/StepList/StepList';
 import { Terminal, Line, C } from '../components/Terminal/Terminal';
 import { useLatestRelease } from '../hooks/useLatestRelease';
 import './IndexPage.css';
+import './OperatorsPage.css';
 
 export function IndexPage() {
   const { version } = useLatestRelease();
@@ -15,28 +16,29 @@ export function IndexPage() {
           <div>
             <span class="hero-availability">
               <span class="badge-dot" />
-              Early access · v{version} · macOS, Windows, Linux
+              Early access · v{version} · macOS, Windows, Linux, Android
             </span>
             <h1>A modern chat client. On infrastructure you can host.</h1>
             <p class="lead" style="margin-top: 20px;">
-              Channels, DMs, member lists, presence, notifications — the things you expect. Built
-              on an open, federated protocol you can self-host, with identity and key derivation in
-              the client so the network underneath stays boring, open, and yours.
+              Channels, DMs, voice and video channels, file uploads, notifications — the things you
+              expect. Built on an open, federated protocol you can self-host, with identity and key
+              derivation in the client so the network underneath stays boring, open, and yours.
             </p>
             <div class="hero-cta" style="margin-top: 28px;">
-              <a class="btn btn-primary" href="/download">Download for desktop</a>
+              <a class="btn btn-primary" href="/download">Download Boson</a>
               <a class="btn btn-ghost btn-arrow" href="#how-it-works">How it works</a>
             </div>
             <div class="hero-meta" aria-label="Supported platforms">
               <span class="os">macOS 12+</span>
               <span class="os">Windows 10+</span>
               <span class="os">Linux (x64)</span>
+              <span class="os">Android 8+ (APK)</span>
             </div>
           </div>
           <ScreenshotFrame
             src="/screenshots/02-chat-readable.png"
             alt="Boson chat window showing a server with channels, message timeline, and member list."
-            caption="CHAT · #general · irc.example.org"
+            caption="CHAT · #dev · irc.nebula.example"
             width={1440}
             height={900}
             loading="eager"
@@ -69,6 +71,46 @@ export function IndexPage() {
         </div>
       </section>
 
+      <section class="section" id="calls">
+        <div class="container stack" style="gap: 56px;">
+          <div class="row-between">
+            <div style="max-width: 46ch;">
+              <p class="eyebrow">Voice &amp; video</p>
+              <h2>Drop into a voice channel. Turn on a camera if you like.</h2>
+              <p class="lead" style="margin-top: 16px;">
+                On networks that run a voice server, channels come with voice rooms: talk, share a
+                camera or your screen, and see who's in before you join. Text stays plain IRC; calls
+                run beside it on their own open-source servers.
+              </p>
+            </div>
+            <a class="btn btn-ghost btn-arrow" href="/features#voice">What calls can do</a>
+          </div>
+          <div class="calls-row">
+            <ScreenshotFrame
+              src="/screenshots/feat-call.png"
+              alt="A voice channel call on desktop: one camera large, the others in a strip, and the participant list on the right."
+              caption="CALL · General · camera tiles"
+              width={1440}
+              height={900}
+            />
+            <ScreenshotFrame
+              src="/screenshots/phone-call.png"
+              alt="The same call on a phone: two camera tiles, a picture-in-picture self view and the call controls."
+              caption="PHONE · the same call"
+              width={786}
+              height={1704}
+              variant="phone"
+            />
+          </div>
+          <ul class="calls-points">
+            <li><strong>Desktop and Android</strong> share the same calls: voice, camera, lip-synced video. iOS is in testing.</li>
+            <li><strong>Phones cancel echo</strong> with the system's own voice processing, so the loudspeaker is fine.</li>
+            <li><strong>Screen sharing</strong> on desktop, with its sound on macOS 13+.</li>
+            <li><strong>Guests can join</strong> where the network allows it, marked with a guest badge.</li>
+          </ul>
+        </div>
+      </section>
+
       <section class="section" id="how-it-works">
         <div class="container stack" style="gap: 56px;">
           <div style="max-width: 38ch;">
@@ -76,7 +118,7 @@ export function IndexPage() {
             <h2>From install to first message in about a minute.</h2>
           </div>
           <Steps>
-            <Step index="01" title="Install the desktop app.">
+            <Step index="01" title="Install the app.">
               Sign in or create an account. The app generates a 32-byte secret on your machine and
               stores the encrypted form in your OS keychain.
             </Step>
@@ -158,31 +200,31 @@ export function IndexPage() {
           <div class="gallery">
             <ScreenshotFrame
               src="/screenshots/03-directory.png"
-              alt="Server directory screen with tags, language filter, and a list of public servers."
-              caption="DIRECTORY · browse and filter"
-              width={1280}
-              height={720}
+              alt="Server directory with public networks from two directories, language and topic filters."
+              caption="DIRECTORY · two directories, one list"
+              width={1440}
+              height={900}
             />
             <ScreenshotFrame
-              src="/screenshots/05-server-setup.png"
-              alt="DNS TXT verification screen for self-hosters registering their IRCd with the directory."
-              caption="REGISTER · DNS TXT verification"
-              width={1280}
-              height={720}
+              src="/screenshots/feat-screenshare.png"
+              alt="A screen share of a code editor filling the call stage, with camera tiles underneath."
+              caption="CALL · screen share (desktop)"
+              width={1440}
+              height={900}
             />
             <ScreenshotFrame
-              src="/screenshots/04-settings.png"
-              alt="Settings screen with identity, server links, and management mode toggle."
-              caption="SETTINGS · identity & servers"
-              width={1280}
-              height={720}
+              src="/screenshots/feat-uploads.png"
+              alt="The upload sheet with three images ready to send to #dev and the account's storage quota."
+              caption="UPLOADS · several files at once"
+              width={1440}
+              height={900}
             />
             <ScreenshotFrame
-              src="/screenshots/01-auth.png"
-              alt="Sign-in screen with email, password, and two-factor input."
-              caption="SIGN-IN · email · TOTP"
-              width={1280}
-              height={720}
+              src="/screenshots/feat-network-theme.png"
+              alt="A channel shown in a network's own theme: violet colours and a background picture behind the messages."
+              caption="NETWORK THEMES · the network's own look"
+              width={1440}
+              height={900}
             />
           </div>
         </div>
@@ -199,7 +241,8 @@ export function IndexPage() {
               <div class="compare-inner">
                 <h4>What you get</h4>
                 <ul class="yes">
-                  <li>Channels, DMs, notifications, member lists — the things a modern chat app is supposed to have.</li>
+                  <li>Channels, DMs, notifications, member lists, uploads — the things a modern chat app is supposed to have.</li>
+                  <li>Voice and video channels, on networks that run a voice server.</li>
                   <li>Server discovery and tag-based search across a directory of independent IRC networks.</li>
                   <li>Cryptographically isolated per-server identities, derived locally from one password.</li>
                   <li>An app that just works without you ever needing to know what SASL is.</li>
@@ -210,13 +253,30 @@ export function IndexPage() {
               <div class="compare-inner">
                 <h4>What it doesn't try to be</h4>
                 <ul>
-                  <li>Voice, video, threads, reactions, slash-commands — IRC doesn't carry these, and we're not building a parallel chat layer to pretend it does.</li>
+                  <li>A parallel chat protocol. Messages are plain IRC, so threads and reactions wait for IRC to carry them; voice and video run beside IRC on separate open servers, not inside it.</li>
                   <li>A hosted-server service. We index the open network; you bring your own daemon.</li>
                   <li>A server-side password reset. We can't see your secret — recovery rides on a one-time code you save, not a "forgot password" email.</li>
                   <li>Free forever as a promise. Free for now, as the truth.</li>
                 </ul>
               </div>
             </Card>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="operators">
+        <div class="container ops-teaser">
+          <div style="max-width: 60ch;">
+            <p class="eyebrow">For network operators</p>
+            <h2>Run an IRC server? List it where Boson users look.</h2>
+            <p class="lead">
+              Any IRC daemon can go in the directory: sign in with a Boson account, add your network
+              and prove the hostname with a DNS record. Then come say hi in #lobby on irc.boson.chat.
+            </p>
+          </div>
+          <div class="hero-cta">
+            <a class="btn btn-primary" href="/operators">How listing works</a>
+            <a class="btn btn-ghost btn-arrow" href="/operators#community">Join the community</a>
           </div>
         </div>
       </section>

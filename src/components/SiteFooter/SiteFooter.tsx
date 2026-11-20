@@ -1,10 +1,26 @@
 import { BosonGlyph } from '@boson/shared';
+import { COMMUNITY, COMMUNITY_JOIN_URL } from '../../community';
 import './SiteFooter.css';
 
 export function SiteFooter() {
   return (
     <footer class="pagefoot">
       <div class="container">
+        <section class="foot-community" aria-labelledby="foot-community-title">
+          <div class="foot-community-text">
+            <h2 id="foot-community-title">Join the community</h2>
+            <p>
+              Chat with the people building Boson and the people using it, in{' '}
+              <span class="num">{COMMUNITY.channel}</span> on{' '}
+              <span class="num">{COMMUNITY.hostname}</span>{' '}
+              ({COMMUNITY.port}, TLS). Questions, ideas, or running a network you want listed.
+            </p>
+          </div>
+          <div class="foot-community-act">
+            <a class="btn btn-primary" href={COMMUNITY_JOIN_URL}>Open in Boson</a>
+            <a class="btn btn-ghost btn-arrow" href="/operators#community">Connection details</a>
+          </div>
+        </section>
         <div class="foot-cols">
           <div class="foot-col foot-col-brand">
             <a class="foot-logo" href="/">
@@ -12,7 +28,7 @@ export function SiteFooter() {
               <span>Boson</span>
             </a>
             <p class="foot-tag">
-              Desktop chat for IRC servers. Identity in the client, plumbing in the open.
+              Chat, voice and video for IRC servers. Identity in the client, plumbing in the open.
             </p>
           </div>
           <div class="foot-col">
@@ -29,6 +45,14 @@ export function SiteFooter() {
               <li><a href="/docs#join-directory">Join from the directory</a></li>
               <li><a href="/docs#add-manual">Add a server manually</a></li>
               <li><a href="/docs#commands">Slash commands</a></li>
+            </ul>
+          </div>
+          <div class="foot-col">
+            <h4>Run a network</h4>
+            <ul>
+              <li><a href="/operators">For operators</a></li>
+              <li><a href="/operators#how">List your network</a></li>
+              <li><a href="/operators#community">Join {COMMUNITY.channel}</a></li>
             </ul>
           </div>
           <div class="foot-col">

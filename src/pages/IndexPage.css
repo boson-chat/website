@@ -177,3 +177,31 @@
 .cta-strip .container { max-width: 640px; }
 .cta-strip h2 { margin-bottom: var(--gap-md); }
 .cta-strip .lead { margin: 0 auto var(--gap-lg); }
+
+/* Voice & video: the desktop call next to the same call on a phone. */
+.calls-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 230px;
+  gap: var(--gap-lg);
+  align-items: end;
+}
+@media (max-width: 720px) {
+  .calls-row { grid-template-columns: 1fr; }
+  .calls-row .shot-figure:last-child { max-width: 260px; margin: 0 auto; }
+}
+.calls-points {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px 40px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  color: var(--fg-2);
+  line-height: 1.55;
+}
+.calls-points li { padding-left: 18px; position: relative; }
+.calls-points li::before { content: '›'; position: absolute; left: 0; color: var(--accent); }
+.calls-points strong { color: var(--fg); font-weight: 500; }
+@media (max-width: 720px) {
+  .calls-points { grid-template-columns: 1fr; }
+}
