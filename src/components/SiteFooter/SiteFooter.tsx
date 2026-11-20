@@ -32,6 +32,14 @@ export function SiteFooter() {
             </ul>
           </div>
           <div class="foot-col">
+            <h4>Run a network</h4>
+            <ul>
+              <li><a href="/operators">For operators</a></li>
+              <li><a href="/operators#how">List your network</a></li>
+              <li><a href="/operators#community">Join #lobby</a></li>
+            </ul>
+          </div>
+          <div class="foot-col">
             <h4>Project</h4>
             <ul>
               <li><a href="/about">About</a></li>

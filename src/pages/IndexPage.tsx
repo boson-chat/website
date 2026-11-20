@@ -5,6 +5,7 @@ import { Step, Steps } from '../components/StepList/StepList';
 import { Terminal, Line, C } from '../components/Terminal/Terminal';
 import { useLatestRelease } from '../hooks/useLatestRelease';
 import './IndexPage.css';
+import './OperatorsPage.css';
 
 export function IndexPage() {
   const { version } = useLatestRelease();
@@ -259,6 +260,23 @@ export function IndexPage() {
                 </ul>
               </div>
             </Card>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="operators">
+        <div class="container ops-teaser">
+          <div style="max-width: 60ch;">
+            <p class="eyebrow">For network operators</p>
+            <h2>Run an IRC server? List it where Boson users look.</h2>
+            <p class="lead">
+              Any IRC daemon can go in the directory: sign in with a Boson account, add your network
+              and prove the hostname with a DNS record. Then come say hi in #lobby on irc.boson.chat.
+            </p>
+          </div>
+          <div class="hero-cta">
+            <a class="btn btn-primary" href="/operators">How listing works</a>
+            <a class="btn btn-ghost btn-arrow" href="/operators#community">Join the community</a>
           </div>
         </div>
       </section>
