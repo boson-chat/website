@@ -65,3 +65,31 @@
     gap: var(--gap-lg);
   }
 }
+
+/* Community invite, at the top of every page's footer. */
+.foot-community {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px 32px;
+  padding: 24px 28px;
+  margin-bottom: var(--gap-xl);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: var(--surface);
+}
+.foot-community-text { flex: 1 1 420px; min-width: 0; }
+.foot-community h2 {
+  margin: 0 0 6px;
+  font-family: var(--font-display);
+  font-size: 18px;
+  color: var(--fg);
+}
+.foot-community p { margin: 0; color: var(--fg-2); font-size: 14px; line-height: 1.6; max-width: 64ch; }
+.foot-community .num { color: var(--fg); }
+.foot-community-act { display: flex; flex-wrap: wrap; gap: 10px; }
+/* .pagefoot a mutes footer links; the band's buttons keep their own colours. */
+.pagefoot .foot-community .btn-primary { color: var(--accent-on); }
+.pagefoot .foot-community .btn-ghost { color: var(--fg); }
+.pagefoot .foot-community .btn-ghost:hover { color: var(--accent); }

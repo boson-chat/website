@@ -1,7 +1,8 @@
 import { Badge, Card } from '@boson/shared';
 import { Step, Steps } from '../components/StepList/StepList';
 import { Terminal, Line, C } from '../components/Terminal/Terminal';
-import { DIRECTORY_URL, LIST_NETWORK_URL, joinUrl } from './discover/directory';
+import { DIRECTORY_URL, LIST_NETWORK_URL } from './discover/directory';
+import { COMMUNITY, COMMUNITY_JOIN_URL } from '../community';
 import './OperatorsPage.css';
 
 // For people who run an IRC server: why and how to list it in the network
@@ -11,8 +12,6 @@ import './OperatorsPage.css';
 
 const DIRECTORY_HOST = new URL(DIRECTORY_URL).host;
 
-/** The Boson community network, as it's listed in the directory. */
-const COMMUNITY = { hostname: 'irc.boson.chat', port: 6697, tls: true, name: 'Boson', channel: '#lobby' };
 
 const WHY = [
   {
@@ -173,7 +172,7 @@ export function OperatorsPage() {
               we’re in <span class="num">{COMMUNITY.channel}</span> on {COMMUNITY.hostname}.
             </p>
             <div class="hero-cta" style="margin-top: 24px;">
-              <a class="btn btn-primary" href={joinUrl(COMMUNITY)}>Open in Boson</a>
+              <a class="btn btn-primary" href={COMMUNITY_JOIN_URL}>Open in Boson</a>
               <a class="btn btn-ghost btn-arrow" href="/download">Get the app</a>
             </div>
           </div>

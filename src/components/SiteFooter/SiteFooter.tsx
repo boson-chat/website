@@ -1,10 +1,26 @@
 import { BosonGlyph } from '@boson/shared';
+import { COMMUNITY, COMMUNITY_JOIN_URL } from '../../community';
 import './SiteFooter.css';
 
 export function SiteFooter() {
   return (
     <footer class="pagefoot">
       <div class="container">
+        <section class="foot-community" aria-labelledby="foot-community-title">
+          <div class="foot-community-text">
+            <h2 id="foot-community-title">Join the community</h2>
+            <p>
+              Chat with the people building Boson and the people using it, in{' '}
+              <span class="num">{COMMUNITY.channel}</span> on{' '}
+              <span class="num">{COMMUNITY.hostname}</span>{' '}
+              ({COMMUNITY.port}, TLS). Questions, ideas, or running a network you want listed.
+            </p>
+          </div>
+          <div class="foot-community-act">
+            <a class="btn btn-primary" href={COMMUNITY_JOIN_URL}>Open in Boson</a>
+            <a class="btn btn-ghost btn-arrow" href="/operators#community">Connection details</a>
+          </div>
+        </section>
         <div class="foot-cols">
           <div class="foot-col foot-col-brand">
             <a class="foot-logo" href="/">
@@ -36,7 +52,7 @@ export function SiteFooter() {
             <ul>
               <li><a href="/operators">For operators</a></li>
               <li><a href="/operators#how">List your network</a></li>
-              <li><a href="/operators#community">Join #lobby</a></li>
+              <li><a href="/operators#community">Join {COMMUNITY.channel}</a></li>
             </ul>
           </div>
           <div class="foot-col">
