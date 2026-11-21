@@ -128,7 +128,7 @@ export function FeaturesPage() {
         title="Built for the desktop."
         blurb="A native app, not a tab — with the polish you'd expect."
         image="/screenshots/feat-desktop.png"
-        imageAlt="Notification settings: mentions, direct messages, and sound"
+        imageAlt="Notification settings: in-app toasts, system notifications, mentions, direct messages and friends"
         features={[
           { icon: <BellIcon />, title: 'Desktop notifications', body: 'Native alerts for mentions and DMs when the window is in the background — not for the channel you are reading; click to jump straight to the conversation.' },
           { icon: <ResizeIcon />, title: 'Your layout, kept', body: 'Resize the channel and member lists and drag channels into your own order; layout, positions and session persist across restarts.' },
