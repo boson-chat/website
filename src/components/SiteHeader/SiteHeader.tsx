@@ -84,7 +84,7 @@ export function SiteHeader() {
           </nav>
           <div class="topnav-actions">
             <a class="btn btn-secondary btn-sm topnav-webapp" href={WEB_APP_URL} rel="noopener">
-              Open in browser
+              Chat now
             </a>
             <a
               class="btn btn-primary btn-sm topnav-download"
@@ -154,7 +154,7 @@ export function SiteHeader() {
               rel="noopener"
               style={`--i: ${NAV_LINKS.length};`}
             >
-              Open in browser
+              Chat now
             </a>
             <a
               class="btn btn-primary mobile-menu-cta"

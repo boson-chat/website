@@ -26,11 +26,11 @@ export function IndexPage() {
             </p>
             <div class="hero-cta" style="margin-top: 28px;">
               <a class="btn btn-primary" href="/download">Download Boson</a>
-              <a class="btn btn-secondary" href="https://chat.boson.chat" rel="noopener">Open in browser</a>
+              <a class="btn btn-secondary" href="https://chat.boson.chat" rel="noopener">Chat in your browser</a>
               <a class="btn btn-ghost btn-arrow" href="#how-it-works">How it works</a>
             </div>
             <p class="muted hero-web-note">
-              Or chat in your browser, no install. Guests can join without an account.
+              Nothing to install. Guests can join without an account.
             </p>
             <div class="hero-meta" aria-label="Supported platforms">
               <span class="os">macOS 12+</span>
