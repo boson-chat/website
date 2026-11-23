@@ -35,6 +35,7 @@ export function SiteFooter() {
             <h4>Product</h4>
             <ul>
               <li><a href="/download">Download</a></li>
+              <li><a href="https://chat.boson.chat" rel="noopener">Web app</a></li>
               <li><a href="/#how-it-works">How it works</a></li>
               <li><a href="/#gallery">Screenshots</a></li>
             </ul>

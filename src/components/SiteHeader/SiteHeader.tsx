@@ -15,6 +15,7 @@ const NAV_LINKS: NavLink[] = [
   { href: '/discover', label: 'Discover' },
   { href: '/docs', label: 'Docs' },
   { href: '/about', label: 'About' },
+  { href: 'https://chat.boson.chat', label: 'Web app', external: true },
   { href: 'https://github.com/boson-chat/boson', label: 'GitHub', external: true },
 ];
 

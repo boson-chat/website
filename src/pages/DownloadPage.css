@@ -48,8 +48,11 @@
 
 .reqs-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   gap: var(--gap-xl);
+}
+@media (max-width: 1100px) {
+  .reqs-grid { grid-template-columns: repeat(2, 1fr); }
 }
 @media (max-width: 920px) {
   .reqs-grid { grid-template-columns: 1fr; gap: var(--gap-lg); }
@@ -121,8 +124,4 @@
 .download-cta { text-align: center; }
 .download-cta .container { max-width: 640px; }
 
-.dl-grid-phones { grid-template-columns: repeat(2, 1fr); max-width: 760px; }
-@media (max-width: 920px) {
-  .dl-grid-phones { grid-template-columns: 1fr; }
-}
 .dl-card > .bds-badge { align-self: flex-start; }

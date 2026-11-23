@@ -37,6 +37,7 @@
 
 .topnav-nav a {
   font-size: 14px;
+  white-space: nowrap;
   color: var(--muted);
   transition: color var(--motion-fast) var(--ease);
 }
@@ -100,7 +101,7 @@
   transform: translate(-50%, 50%) rotate(-45deg);
 }
 
-@media (max-width: 720px) {
+@media (max-width: 880px) {
   /* Need .topnav prefix so we beat the global `.btn { display: inline-flex }`
      specificity that applies to .topnav-download (which also carries .btn). */
   .topnav .topnav-nav,
