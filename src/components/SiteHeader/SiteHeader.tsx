@@ -9,6 +9,10 @@ interface NavLink {
   external?: boolean;
 }
 
+// The web app isn't a page of the site: it's offered as a button next to
+// Download (header and mobile menu), not as a nav link.
+const WEB_APP_URL = 'https://chat.boson.chat';
+
 const NAV_LINKS: NavLink[] = [
   { href: '/', label: 'Overview' },
   { href: '/features', label: 'Features' },
@@ -78,13 +82,18 @@ export function SiteHeader() {
               ),
             )}
           </nav>
-          <a
-            class="btn btn-primary btn-sm topnav-download"
-            href="/download"
-            aria-current={path === '/download' ? 'page' : undefined}
-          >
-            Download
-          </a>
+          <div class="topnav-actions">
+            <a class="btn btn-secondary btn-sm topnav-webapp" href={WEB_APP_URL} rel="noopener">
+              Chat now
+            </a>
+            <a
+              class="btn btn-primary btn-sm topnav-download"
+              href="/download"
+              aria-current={path === '/download' ? 'page' : undefined}
+            >
+              Download
+            </a>
+          </div>
           <button
             type="button"
             class={`topnav-burger ${menuOpen ? 'is-open' : ''}`}
@@ -138,14 +147,24 @@ export function SiteHeader() {
               ),
             )}
           </nav>
-          <a
-            class="btn btn-primary mobile-menu-cta"
-            href="/download"
-            aria-current={path === '/download' ? 'page' : undefined}
-            style={`--i: ${NAV_LINKS.length};`}
-          >
-            Download Boson
-          </a>
+          <div class="mobile-menu-ctas">
+            <a
+              class="btn btn-secondary mobile-menu-cta"
+              href={WEB_APP_URL}
+              rel="noopener"
+              style={`--i: ${NAV_LINKS.length};`}
+            >
+              Chat now
+            </a>
+            <a
+              class="btn btn-primary mobile-menu-cta"
+              href="/download"
+              aria-current={path === '/download' ? 'page' : undefined}
+              style={`--i: ${NAV_LINKS.length + 1};`}
+            >
+              Download Boson
+            </a>
+          </div>
         </div>
       </div>
     </>

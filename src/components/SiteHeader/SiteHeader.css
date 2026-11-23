@@ -24,6 +24,7 @@
   align-items: center;
   gap: 8px;
   color: var(--fg);
+  flex-shrink: 0;
 }
 
 .topnav-logo-mark {
@@ -37,6 +38,7 @@
 
 .topnav-nav a {
   font-size: 14px;
+  white-space: nowrap;
   color: var(--muted);
   transition: color var(--motion-fast) var(--ease);
 }
@@ -44,6 +46,14 @@
 .topnav-nav a:hover,
 .topnav-nav a[aria-current='page'] {
   color: var(--fg);
+}
+
+/* Open in browser + Download, right of the nav. */
+.topnav-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
 }
 
 /* Hamburger — hidden on desktop, shown on mobile. Three lines that
@@ -100,11 +110,11 @@
   transform: translate(-50%, 50%) rotate(-45deg);
 }
 
-@media (max-width: 720px) {
+@media (max-width: 880px) {
   /* Need .topnav prefix so we beat the global `.btn { display: inline-flex }`
      specificity that applies to .topnav-download (which also carries .btn). */
   .topnav .topnav-nav,
-  .topnav .topnav-download { display: none; }
+  .topnav .topnav-actions { display: none; }
   .topnav-burger { display: inline-flex; align-items: center; justify-content: center; }
 }
 
@@ -196,12 +206,20 @@
   transform: translateY(0);
 }
 
+.mobile-menu-ctas {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-self: stretch;
+  margin-top: auto;
+}
+
 .mobile-menu-cta {
   align-self: stretch;
+  justify-content: center;
   text-align: center;
   font-size: 16px !important;
   padding: 16px 24px !important;
-  margin-top: auto;
   opacity: 0;
   transform: translateY(16px);
   transition:

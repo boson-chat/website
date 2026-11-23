@@ -16,7 +16,7 @@ export function IndexPage() {
           <div>
             <span class="hero-availability">
               <span class="badge-dot" />
-              Early access · v{version} · macOS, Windows, Linux, Android
+              Early access · v{version} · macOS, Windows, Linux, Android, Web
             </span>
             <h1>A modern chat client. On infrastructure you can host.</h1>
             <p class="lead" style="margin-top: 20px;">
@@ -26,13 +26,18 @@ export function IndexPage() {
             </p>
             <div class="hero-cta" style="margin-top: 28px;">
               <a class="btn btn-primary" href="/download">Download Boson</a>
+              <a class="btn btn-secondary" href="https://chat.boson.chat" rel="noopener">Chat in your browser</a>
               <a class="btn btn-ghost btn-arrow" href="#how-it-works">How it works</a>
             </div>
+            <p class="muted hero-web-note">
+              Nothing to install. Guests can join without an account.
+            </p>
             <div class="hero-meta" aria-label="Supported platforms">
               <span class="os">macOS 12+</span>
               <span class="os">Windows 10+</span>
               <span class="os">Linux (x64)</span>
               <span class="os">Android 8+ (APK)</span>
+              <span class="os">Web (no install)</span>
             </div>
           </div>
           <ScreenshotFrame
@@ -103,7 +108,7 @@ export function IndexPage() {
             />
           </div>
           <ul class="calls-points">
-            <li><strong>Desktop and Android</strong> share the same calls: voice, camera, lip-synced video. iOS is in testing.</li>
+            <li><strong>Desktop, Android and the web app</strong> share the same calls: voice, camera, lip-synced video. iOS is in testing.</li>
             <li><strong>Phones cancel echo</strong> with the system's own voice processing, so the loudspeaker is fine.</li>
             <li><strong>Screen sharing</strong> on desktop, with its sound on macOS 13+.</li>
             <li><strong>Guests can join</strong> where the network allows it, marked with a guest badge.</li>

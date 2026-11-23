@@ -34,6 +34,7 @@ function detectOS(): DetectedOS {
 const REPO_URL = 'https://github.com/boson-chat/boson';
 const LATEST_URL = `${REPO_URL}/releases/latest`;
 const CHANGELOG_URL = `${REPO_URL}/blob/main/CHANGELOG.md`;
+const WEB_APP_URL = 'https://chat.boson.chat';
 const DL = (name: string) => `${REPO_URL}/releases/latest/download/${name}`;
 
 export function DownloadPage() {
@@ -61,7 +62,8 @@ export function DownloadPage() {
           <h1>Get Boson.</h1>
           <p class="lead" style="margin-top: 20px;">
             A native app for macOS, Windows, and Linux — and Android — with the Go IRC engine
-            built in. Pick your platform; assets live on the GitHub release page.
+            built in. Pick your platform; assets live on the GitHub release page. Or skip the
+            install and <a href={WEB_APP_URL} rel="noopener" class="dl-source-link">open Boson in your browser</a>.
           </p>
         </div>
       </section>
@@ -140,10 +142,10 @@ export function DownloadPage() {
       <section class="section" id="phones">
         <div class="container stack" style="gap: 40px;">
           <div style="max-width: 46ch;">
-            <p class="eyebrow">On your phone</p>
-            <h2>Android now. iOS later.</h2>
+            <p class="eyebrow">On your phone, or in a browser</p>
+            <h2>Android now. iOS later. The web today.</h2>
           </div>
-          <div class="dl-grid dl-grid-phones">
+          <div class="dl-grid">
             <article class={wrapClass('android')}>
               <Card variant={cardVariant('android')}>
                 <div class="dl-card">
@@ -173,6 +175,24 @@ export function DownloadPage() {
                   <span class="dl-bytes">
                     The iOS app is being tested and isn't available to install yet — no App Store
                     or TestFlight link for now.
+                  </span>
+                </div>
+              </Card>
+            </article>
+            <article class="dl-card-wrap" id="web">
+              <Card>
+                <div class="dl-card">
+                  <WebIcon />
+                  <h3>Web</h3>
+                  <span class="dl-arch">Chrome, Edge, Firefox or Safari</span>
+                  <div class="dl-actions">
+                    <a class="btn btn-primary" href={WEB_APP_URL} rel="noopener">
+                      Open in browser
+                    </a>
+                  </div>
+                  <span class="dl-bytes">
+                    Nothing to install. Join as a guest and land in #lobby, or sign in with your
+                    boson.chat account. Voice and video calls work too.
                   </span>
                 </div>
               </Card>
@@ -213,6 +233,15 @@ export function DownloadPage() {
                 <li>GTK 4 and WebKitGTK 6.0 (Ubuntu 24.04+, Fedora 39+, Debian 13+)</li>
                 <li>libsecret + Secret Service backend (GNOME Keyring, KWallet)</li>
                 <li>Wayland or X11 supported</li>
+              </ul>
+            </div>
+            <div>
+              <h3>Web</h3>
+              <ul>
+                <li>A recent Chrome, Edge, Firefox or Safari</li>
+                <li>Nothing to install; each visit runs the latest version</li>
+                <li>Microphone / camera permission for calls</li>
+                <li>Closing the tab disconnects (a bouncer keeps you online)</li>
               </ul>
             </div>
           </div>
@@ -401,6 +430,15 @@ function AppleMobileIcon() {
     <svg class="os-mark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
       <rect x="6.5" y="2" width="11" height="20" rx="2.5" />
       <path d="M11 18.5h2" />
+    </svg>
+  );
+}
+
+function WebIcon() {
+  return (
+    <svg class="os-mark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <circle cx="12" cy="12" r="9" />
+      <path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18" />
     </svg>
   );
 }

@@ -15,7 +15,7 @@ export function FeaturesPage() {
           <p class="eyebrow">Features</p>
           <h1>Everything Boson does.</h1>
           <p class="lead" style="margin-top: 20px;">
-            A modern client for self-hosted IRC on desktop and Android — rich chat, voice and video
+            A modern client for self-hosted IRC on desktop, Android and the web — rich chat, voice and video
             channels, uploads, moderation, and services automation on top of an open protocol. No
             walled garden, no lock-in.
           </p>
