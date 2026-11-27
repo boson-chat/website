@@ -8,6 +8,7 @@ import { DownloadPage } from './pages/DownloadPage';
 import { FeaturesPage } from './pages/FeaturesPage';
 import { NotFoundPage } from './pages/NotFoundPage';
 import { OperatorsPage } from './pages/OperatorsPage';
+import { TelemetryPage } from './pages/TelemetryPage';
 import { SelfHostPage } from './pages/selfhost/SelfHostPage';
 import { NewServerPage } from './pages/selfhost/NewServerPage';
 import { ExistingIrcPage } from './pages/selfhost/ExistingIrcPage';
@@ -51,6 +52,7 @@ function AppShell() {
           <Route path="/self-host/new-server" component={NewServerPage} />
           <Route path="/self-host/existing-irc" component={ExistingIrcPage} />
           <Route path="/self-host/features" component={SelfHostFeaturesPage} />
+          <Route path="/telemetry" component={TelemetryPage} />
           <Route default component={NotFoundPage} />
         </Router>
       </main>

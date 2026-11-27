@@ -11,6 +11,7 @@ import {
   ReverseProxySection,
   ServerRequirements,
   StackDoc,
+  TelemetrySection,
   UpdatesSection,
 } from './common';
 
@@ -49,6 +50,7 @@ const TOC: TocGroup[] = [
       { id: 'federation', label: 'Federation & directory' },
       { id: 'push', label: 'Push notifications' },
       { id: 'updates', label: 'Updates & backups' },
+      { id: 'telemetry', label: 'Usage & health stats' },
       { id: 'not-yet', label: 'Not yet' },
       { id: 'help', label: 'Getting help' },
     ],
@@ -442,6 +444,12 @@ classic IRC client ────────────────────�
         <p class="eyebrow">Running it</p>
         <h2>Updates, backups and rollback.</h2>
         <UpdatesSection addon />
+      </article>
+
+      <article class="doc-section" id="telemetry">
+        <p class="eyebrow">Running it</p>
+        <h2>Usage and health stats.</h2>
+        <TelemetrySection />
       </article>
 
       <article class="doc-section" id="not-yet">

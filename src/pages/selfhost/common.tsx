@@ -349,6 +349,26 @@ export function UpdatesSection({ addon }: ModeProps) {
   );
 }
 
+/** The install report the admin panel sends; links to /telemetry. */
+export function TelemetrySection() {
+  return (
+    <>
+      <p>
+        The admin panel sends boson.chat one small, anonymous report a day: versions, which
+        features are on, bucketed counts, and health (failed updates, restarting services, CPU,
+        memory and disk). It helps us catch broken releases and struggling servers. No names,
+        emails, messages, channel names, IP addresses or hostnames, ever.
+      </p>
+      <p>
+        To turn it off: admin panel → <strong>Settings</strong> → <strong>Usage &amp; health
+        stats</strong>, or <K>TELEMETRY=off</K> in <K>.env</K>, or <strong>Turn off</strong> in
+        the setup wizard. The same Settings card shows exactly what’s sent. What it contains and
+        how long we keep it: <a class="docs-link" href="/telemetry">Usage &amp; health stats</a>.
+      </p>
+    </>
+  );
+}
+
 /** Where to ask. */
 export function HelpSection() {
   return (

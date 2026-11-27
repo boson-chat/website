@@ -159,6 +159,7 @@ export function IndexPage() {
                 <li>On another Boson server, your home server vouches for you with a signed, short-lived assertion; your password never goes there.</li>
                 <li>NickServ and bouncer logins you save for other networks are encrypted on your device with your identity key. boson.chat stores only ciphertext, so your other devices can sync them and nobody else can read them.</li>
                 <li>Push notifications are encrypted by the server to your device's own key: the push relay, Apple, Google and browser vendors can't read them.</li>
+                <li>Apps and servers send anonymous <a href="/telemetry">usage &amp; health stats</a> once a day: versions, crashes, failed updates. No names, messages or IPs, and one switch turns them off.</li>
               </ul>
               <p class="privacy-tradeoff">
                 Forgot your password? Reset it by email. Your identity key is a separate lock: it
