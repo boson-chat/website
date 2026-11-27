@@ -52,6 +52,9 @@ export function SiteFooter() {
             <h4>Run a network</h4>
             <ul>
               <li><a href="/operators">For operators</a></li>
+              <li><a href="/self-host">Self-host Boson</a></li>
+              <li><a href="/self-host/new-server">New server guide</a></li>
+              <li><a href="/self-host/existing-irc">Add to your IRC server</a></li>
               <li><a href="/operators#how">List your network</a></li>
               <li><a href="/operators#community">Join {COMMUNITY.channel}</a></li>
             </ul>

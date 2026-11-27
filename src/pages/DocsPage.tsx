@@ -65,8 +65,8 @@ export function DocsPage() {
                 <li><a href="#host-daemon"   class={linkClass('host-daemon')}>Pick an IRCd</a></li>
                 <li><a href="#host-verify"   class={linkClass('host-verify')}>DNS TXT verification</a></li>
                 <li><a href="#host-register" class={linkClass('host-register')}>Submit to the directory</a></li>
-                <li><a href="#host-stack"    class={linkClass('host-stack')}>The Boson stack (coming soon)</a></li>
-                <li><a href="#host-own"      class={linkClass('host-own')}>Your own directory (coming soon)</a></li>
+                <li><a href="#host-stack"    class={linkClass('host-stack')}>Run the Boson stack</a></li>
+                <li><a href="#host-own"      class={linkClass('host-own')}>Your own directory</a></li>
                 <li><a href="#host-health"   class={linkClass('host-health')}>Health &amp; re-verification</a></li>
               </ul>
               <h4>Reference</h4>
@@ -556,29 +556,32 @@ export function DocsPage() {
 
               <article class="doc-section" id="host-stack">
                 <p class="eyebrow">05</p>
-                <h2>The Boson stack <Badge tone="warn">Coming soon</Badge></h2>
+                <h2>Run the Boson stack.</h2>
                 <p>
                   boson.chat runs on a set of services we call the Boson stack: an Ergo IRC server,
                   accounts with SSO and network roles, voice and video servers, file uploads, a
                   directory, and an admin panel for users, invites, sign-in providers, network
-                  settings and service health. We're preparing it for others to run on their own
-                  domain.
+                  settings and service health. You can run it on your own domain, on a fresh
+                  server or next to the IRC server you already have, with one command:{' '}
+                  <span class="num">curl -fsSL https://get.boson.chat | sudo sh</span>.
                 </p>
                 <p class="muted">
-                  There's no supported way to install it yet, so there are no setup steps here.
-                  Until then, any IRC daemon from the list above works with Boson and can be listed
-                  in the directory.
+                  The <a href="/self-host" class="docs-link">self-host guides</a> walk through
+                  both: <a href="/self-host/new-server" class="docs-link">a new server</a> and{' '}
+                  <a href="/self-host/existing-irc" class="docs-link">an existing IRC server</a>.
+                  You don't need the stack to be listed: any IRC daemon from the list above works.
                 </p>
               </article>
 
               <article class="doc-section" id="host-own">
                 <p class="eyebrow">06</p>
-                <h2>Your own directory <Badge tone="warn">Coming soon</Badge></h2>
+                <h2>Your own directory.</h2>
                 <p>
                   The directory is federated: directories can import each other's listings, and
                   each one checks a server's <span class="num">_boson</span> TXT record itself
-                  before showing it as verified. Running a directory of your own will come with the
-                  Boson stack. You can already <em>browse</em> other directories — add one in{' '}
+                  before showing it as verified. A Boson stack can run a directory of its own
+                  (the wizard's Features step), which includes directory.boson.chat's listings by
+                  default. You can already <em>browse</em> other directories — add one in{' '}
                   <strong>User settings → Directories</strong>.
                 </p>
               </article>

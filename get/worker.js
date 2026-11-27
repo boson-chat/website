@@ -7,7 +7,7 @@
 // can still see the script at /install.sh (or ?raw).
 
 export const SCRIPT_URL = 'https://raw.githubusercontent.com/boson-chat/stack/main/install.sh';
-const DOCS_URL = 'https://github.com/boson-chat/stack/blob/main/docs/setup.md';
+const DOCS_URL = 'https://boson.chat/self-host';
 const CMD = 'curl -fsSL https://get.boson.chat | sudo sh';
 
 const CLI_UA = /^(curl|wget|fetch|libfetch|httpie|aria2|powershell|python-|go-http-client|okhttp|axios|node|undici|xh)\b/i;

@@ -1,4 +1,4 @@
-import { Badge, Card } from '@boson/shared';
+import { Card } from '@boson/shared';
 import { Step, Steps } from '../components/StepList/StepList';
 import { Terminal, Line, C } from '../components/Terminal/Terminal';
 import { DIRECTORY_URL, LIST_NETWORK_URL } from './discover/directory';
@@ -154,8 +154,8 @@ export function OperatorsPage() {
                 any time.
               </p>
               <p class="ops-soon">
-                <Badge tone="warn">Coming soon</Badge> Self-hosted Boson stacks will be able to
-                register from their admin panel later.
+Running your own <a class="docs-link" href="/self-host">Boson stack</a>? List it from
+                the admin panel’s Directory page instead.
               </p>
             </div>
           </div>

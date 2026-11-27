@@ -18,9 +18,16 @@ const NAV_LINKS: NavLink[] = [
   { href: '/features', label: 'Features' },
   { href: '/discover', label: 'Discover' },
   { href: '/docs', label: 'Docs' },
+  { href: '/self-host', label: 'Self-host' },
   { href: '/about', label: 'About' },
   { href: 'https://github.com/boson-chat/boson', label: 'GitHub', external: true },
 ];
+
+// A section's link stays current on its sub-pages (/self-host/new-server).
+function isCurrent(path: string, href: string): 'page' | undefined {
+  if (path === href) return 'page';
+  return href !== '/' && path.startsWith(href + '/') ? 'page' : undefined;
+}
 
 export function SiteHeader() {
   const { path } = useLocation();
@@ -75,7 +82,7 @@ export function SiteHeader() {
                 <a
                   key={link.href}
                   href={link.href}
-                  aria-current={path === link.href ? 'page' : undefined}
+                  aria-current={isCurrent(path, link.href)}
                 >
                   {link.label}
                 </a>
@@ -139,7 +146,7 @@ export function SiteHeader() {
                 <a
                   key={link.href}
                   href={link.href}
-                  aria-current={path === link.href ? 'page' : undefined}
+                  aria-current={isCurrent(path, link.href)}
                   style={`--i: ${i};`}
                 >
                   {link.label}
