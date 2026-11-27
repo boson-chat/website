@@ -154,7 +154,7 @@ const GROUPS: Group[] = [
         body: (
           <>
             Brand the client for your network: theme colours (dark or light base), a background
-            per pane, corner radius and font, a logo and wordmark, and a sign-in background. The
+            per pane, the font, a logo and wordmark, and a sign-in background. The
             editor previews the client and the sign-in screen and warns about low contrast. The
             account emails take your logo, colours and wording too.
           </>
@@ -197,7 +197,9 @@ const GROUPS: Group[] = [
           <>
             DMs and mentions reach people while none of their devices is connected: in the
             browser, and on phones through boson.chat’s push relay. Encrypted on your server to
-            the device’s key, so the relay, Apple and Google can’t read them. Accounts only.
+            the device’s key, so the relay, Apple and Google can’t read them. Accounts only. (The
+            desktop app notifies while it’s running; the Android download doesn’t have phone push
+            yet.)
           </>
         ),
         where: <>Nothing to set up.</>,

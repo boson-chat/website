@@ -96,7 +96,7 @@ export function OperatorsPage() {
               For the Boson app to sign people in, the server needs what it needs from any network:
               TLS with a certificate from a public CA, and SASL for account login. Details are in{' '}
               <a class="docs-link" href="/docs#ref-tls">TLS &amp; ports</a> and{' '}
-              <a class="docs-link" href="/docs#ref-sasl">SASL requirements</a>.
+              <a class="docs-link" href="/docs#ref-sasl">SASL and sign-in</a>.
             </p>
           </div>
         </div>

@@ -15,9 +15,10 @@ export function FeaturesPage() {
           <p class="eyebrow">Features</p>
           <h1>Everything Boson does.</h1>
           <p class="lead" style="margin-top: 20px;">
-            A modern client for self-hosted IRC on desktop, Android and the web — rich chat, voice and video
-            channels, uploads, moderation, and services automation on top of an open protocol. No
-            walled garden, no lock-in.
+            A modern client for IRC on desktop, Android and the web: rich chat with replies, threads and
+            reactions, voice and video channels, uploads, push notifications, moderation and services
+            automation on top of an open protocol. And a server stack to run it all yourself. No walled
+            garden, no lock-in.
           </p>
           <div class="hero-cta" style="margin-top: 28px;">
             <a class="btn btn-primary" href="/download">Download</a>
@@ -36,6 +37,9 @@ export function FeaturesPage() {
           { icon: <MarkdownIcon />, title: 'Markdown & tables', body: 'Bold, italic, strikethrough, inline code, links, and real HTML tables — pasted box-drawing and pipe tables are reconstructed into clean, scrollable grids.' },
           { icon: <EyeOffIcon />, title: 'Spoilers & emoji', body: 'Hide spoilers behind a click, drop in emoji from a searchable picker, and see your own nick right in the composer.' },
           { icon: <CodeIcon />, title: 'Code & monospace', body: 'Fenced code and columnar bot output render in aligned monospace blocks instead of wrapping into noise.' },
+          { icon: <ReplyIcon />, title: 'Replies & threads', body: 'Reply to a message and the reply chain becomes a thread with its own panel. Replies carry a quoted line, so people on classic clients can follow them too.' },
+          { icon: <SmileIcon />, title: 'Reactions & deleting', body: 'React with an emoji and take it back. Delete your own messages, or anyone’s in a channel you op, where the server allows it (Boson servers do).' },
+          { icon: <SearchIcon />, title: 'Read markers & search', body: 'What you’ve read syncs between your devices, so unread survives closing the app. Search a conversation, paging back through the server’s history.' },
         ]}
       />
 
@@ -56,13 +60,13 @@ export function FeaturesPage() {
         id="voice"
         eyebrow="Voice & video"
         title="Voice channels, with cameras and screens."
-        blurb="On networks that run a voice server, each one lists its voice channels in the sidebar. See who's in, join from a pre-join view, and turn on a camera or share your screen."
+        blurb="On networks that run a voice server, each one lists its voice channels in the sidebar. See who's in, join from a pre-join view, and turn on a camera or share your screen. Friends on the same network can call each other one to one."
         image="/screenshots/feat-call.png"
         imageAlt="A call in a voice channel: one camera large, the rest in a strip, and who's speaking on the right"
         features={[
-          { icon: <MicIcon />, title: 'Voice channels', body: 'Open mic or push to talk, a mic test, per-person volume, and Standard, High or Music quality. On desktop, use headphones: echo cancellation there is still to come.' },
-          { icon: <CameraIcon />, title: 'Cameras, lip-synced', body: 'Every voice channel is also a video channel. Video waits for its sound, so lips match words; the stage shows one person big or everyone in a grid.' },
-          { icon: <ScreenIcon />, title: 'Screen sharing (desktop)', body: 'Pick a screen or a window from thumbnails. On macOS 13+ you can share its sound too, heard in sync by everyone watching.' },
+          { icon: <MicIcon />, title: 'Voice channels', body: 'Open mic or push to talk, a mic test, per-person volume, and Standard, High or Music quality. Phones and browsers cancel echo; in the desktop app, use headphones: echo cancellation there is still to come.' },
+          { icon: <CameraIcon />, title: 'Cameras, lip-synced', body: 'Every voice channel is also a video channel. Video waits for its sound, so lips match words; the stage shows one person big or everyone in a grid. The Linux app watches but doesn’t send a camera yet.' },
+          { icon: <ScreenIcon />, title: 'Screen sharing', body: 'From the macOS and Windows apps, picking a screen or a window from thumbnails, and from the web app in Chrome, Edge or Firefox. On macOS 13+ you can share its sound too, heard in sync by everyone watching.' },
           { icon: <GuestIcon />, title: 'Guests in calls', body: 'Where a network allows it, people without an account can join voice and video under their IRC nick, with a guest badge.' },
           { icon: <LockIcon />, title: 'Roles and locks', body: 'Voice channels can sit under a text channel and be limited to its ops or voiced members, or be listen-only for most people, as the server allows.' },
           { icon: <GaugeIcon />, title: 'Data saver', body: 'Camera quality on Auto, Data saver or High. On mobile data, Data saver keeps your camera at 360p.' },
@@ -113,13 +117,16 @@ export function FeaturesPage() {
       <FeatureSection
         eyebrow="Connectivity"
         title="Many servers, always on."
-        blurb="Connect to any self-hosted network, with or without a bouncer."
+        blurb="Connect to any IRC network, with or without a bouncer, and take your Boson account to other Boson servers."
         image="/screenshots/03-directory.png"
         imageAlt="Server directory with searchable, verified self-hosted IRC servers"
         features={[
           { icon: <RelayIcon />, title: 'Bouncers', body: 'ZNC, and bouncers that speak the soju protocol (soju, evrd): always-on presence, backlog fetched on every attach, DMs included, and scrollback that loads as you scroll up.' },
-          { icon: <ServersIcon />, title: 'Multi-server', body: 'Run several networks side by side; per-server identity, nicks, and credentials stay isolated. Networks with their own accounts sign you in there, with SSO where they offer it.' },
-          { icon: <GlobeIcon />, title: 'A federated directory', body: 'Browse directory.boson.chat and any other directory you add, merged into one list — or add a private server by hand in seconds.' },
+          { icon: <ServersIcon />, title: 'Multi-server', body: 'Run several networks side by side; per-server nicks and credentials stay separate. Networks with their own accounts sign you in there, with SSO where they offer it.' },
+          { icon: <GlobeIcon />, title: 'A federated directory', body: 'Browse directory.boson.chat and any other directory you add, merged into one list, or add a server by address in seconds.' },
+          { icon: <UserCheckIcon />, title: 'Your account, elsewhere', body: 'On another Boson server, “Continue as alice@boson.chat” signs you in with your home account, no new sign-up. Your password stays at home; servers verified in the directory trust each other by default.' },
+          { icon: <PowerIcon />, title: 'Always on', body: 'Signed in on a Boson server, you stay connected with no device open, and catch up on what you missed when you come back.' },
+          { icon: <BellIcon />, title: 'Push notifications', body: 'DMs and mentions reach you while Boson is closed: in the browser from the web app today. Encrypted by the server to your device, so nobody in between can read them.' },
         ]}
       />
 
@@ -130,7 +137,7 @@ export function FeaturesPage() {
         image="/screenshots/feat-desktop.png"
         imageAlt="Notification settings: in-app toasts, system notifications, mentions, direct messages and friends"
         features={[
-          { icon: <BellIcon />, title: 'Desktop notifications', body: 'Native alerts for mentions and DMs when the window is in the background — not for the channel you are reading; click to jump straight to the conversation.' },
+          { icon: <BellIcon />, title: 'Desktop notifications', body: 'Native alerts while the app is running, never for the channel you are reading; click to jump straight to the conversation. Choose all, mentions or nothing per server and per channel, synced with your account.' },
           { icon: <ResizeIcon />, title: 'Your layout, kept', body: 'Resize the channel and member lists and drag channels into your own order; layout, positions and session persist across restarts.' },
           { icon: <DesktopIcon />, title: 'Cross-platform, updates in-app', body: 'macOS (Apple Silicon and Intel), Windows and Linux, on each system’s own webview. Updates install from inside the app, with what changed in every release since yours.' },
         ]}
@@ -144,8 +151,8 @@ export function FeaturesPage() {
         imageAlt="A channel in a network's own theme: violet colours and a picture behind the messages"
         features={[
           { icon: <PaletteIcon />, title: 'Five built-in themes', body: 'Terminal, Daylight, Nord, Solarized, and Phosphor — switch in one click, applied instantly across the app.' },
-          { icon: <DropperIcon />, title: 'Live theme editor', body: 'A colour picker with hue, opacity, hex, eyedropper, and the theme\'s own colours to reuse — plus corners, font, and nick colours, all previewed live. Themes are plain JSON files you can share.' },
-          { icon: <FileIcon />, title: 'Network themes', body: 'A network can publish its own colours (light and dark), logo, pane backgrounds and sign-in picture. They apply while you are on it; turn them off for one network or all.' },
+          { icon: <DropperIcon />, title: 'Live theme editor', body: 'A colour picker with hue, opacity, hex, eyedropper, and the theme\'s own colours to reuse plus font and nick colours, all previewed live. Themes are plain JSON files you can share.' },
+          { icon: <FileIcon />, title: 'Network themes', body: 'A network can publish its own colours (light and dark), logo, pane backgrounds and sign-in picture, and its sign-in screen wears them too. They apply while you are on it; turn them off for one network or all.' },
         ]}
       />
 
@@ -156,7 +163,7 @@ export function FeaturesPage() {
         image="/screenshots/feat-privacy.png"
         imageAlt="Content settings with per-type embed toggles and click-to-load"
         features={[
-          { icon: <LockIcon />, title: 'One account, every server', body: 'Sign in once; per-server IRC credentials are encrypted and stored in your OS keychain — never in plain text.' },
+          { icon: <LockIcon />, title: 'Your saved logins, encrypted', body: 'NickServ and bouncer logins are encrypted with your identity key before they sync, so boson.chat stores only ciphertext; on the device they sit in its secure store.' },
           { icon: <EyeOffIcon />, title: 'Privacy-first previews', body: 'Switch embeds to click-to-load so no remote content (or your IP) is fetched until you ask. Link unfurls are SSRF-guarded.' },
           { icon: <ProtocolIcon />, title: 'Open protocol, local engine', body: 'Plain IRC underneath, spoken by a local Go engine on your machine. No proprietary lock-in — leave whenever you like.' },
         ]}
@@ -165,13 +172,13 @@ export function FeaturesPage() {
       <FeatureSection
         id="self-hosting"
         eyebrow="Self-hosting"
-        badge="Coming soon"
         title="The whole server side, on your own domain."
-        blurb="Today you can point Boson at any IRC server and list it in the directory. We're preparing the Boson stack — everything boson.chat itself runs on — for others to install. There's no supported way to set it up yet."
+        blurb="The Boson stack is what boson.chat runs on, and anyone can install it: one command on a Linux server starts a setup wizard in your browser. Already run an IRC server? Boson can go next to it instead."
+        more={{ href: '/self-host', label: 'Self-host guides' }}
         features={[
-          { icon: <ServersIcon />, title: 'The Boson stack', body: 'IRC (Ergo), accounts with SSO and network roles, voice, video, file uploads and a directory, wired together for one domain with automatic TLS.' },
-          { icon: <GaugeIcon />, title: 'An admin panel', body: 'Users and invites, sign-in providers, network settings such as guest access, an audit log, and the health and metrics of each service.' },
-          { icon: <GlobeIcon />, title: 'Your own directory', body: 'A directory of your own that federates with directory.boson.chat, so your members see the whole network plus your listings.' },
+          { icon: <ServersIcon />, title: 'The Boson stack', body: 'IRC (Ergo), accounts with SSO and network roles, the web app, voice, video, file uploads, push and a directory, wired together for one domain with automatic TLS.' },
+          { icon: <GaugeIcon />, title: 'An admin panel', body: 'Users and invites, sign-in providers, network settings such as guest access, branding, an audit log, service health, and updates with a backup first and automatic rollback.' },
+          { icon: <RelayIcon />, title: 'Your IRC server, kept', body: 'Running UnrealIRCd, InspIRCd or ngIRCd? Boson goes on a server next to it and Boson users join through a bridge (evrd). Classic clients don’t notice a thing.' },
         ]}
       />
 
@@ -194,7 +201,7 @@ export function FeaturesPage() {
 }
 
 function FeatureSection({
-  id, eyebrow, badge, title, blurb, features, image, imageAlt,
+  id, eyebrow, badge, title, blurb, features, image, imageAlt, more,
 }: {
   id?: string;
   eyebrow: string;
@@ -205,6 +212,8 @@ function FeatureSection({
   features: { icon: ComponentChildren; title: string; body: string }[];
   image?: string;
   imageAlt?: string;
+  // A link under the blurb ("Self-host guides").
+  more?: { href: string; label: string };
 }) {
   return (
     <section class="section features-section" id={id}>
@@ -216,6 +225,7 @@ function FeatureSection({
           </p>
           <h2>{title}</h2>
           <p class="lead">{blurb}</p>
+          {more && <a class="btn btn-ghost btn-arrow features-more" href={more.href}>{more.label}</a>}
         </div>
         {image && (
           <figure class="features-shot">
@@ -273,8 +283,9 @@ function PhoneSection() {
           </FeatureCard>
           <FeatureCard title="Stays connected" icon={<RelayIcon />}>
             Connections are kept alive on mobile data and checked when you come back or switch
-            networks. With a bouncer or IRCv3 history, what you missed fills in. No push
-            notifications yet.
+            networks. On Boson servers you stay online while the app is closed, and with a bouncer
+            or IRCv3 history what you missed fills in. Phone push is built into the app, but the
+            Android download doesn't include it yet.
           </FeatureCard>
         </div>
       </div>
@@ -316,5 +327,9 @@ const ScreenIcon = () => svg(<><rect x="3" y="4" width="18" height="12" rx="2" /
 const GuestIcon = () => svg(<><circle cx="12" cy="8" r="3.5" /><path d="M5 20a7 7 0 0 1 14 0" /><path d="M18 4h3M19.5 2.5v3" /></>);
 const GaugeIcon = () => svg(<><path d="M4 17a8 8 0 1 1 16 0" /><path d="M12 17l4-5" /></>);
 const UploadIcon = () => svg(<><path d="M12 15V4M7.5 8.5 12 4l4.5 4.5" /><path d="M4 15v3a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-3" /></>);
+const ReplyIcon = () => svg(<><path d="M9 8L4 12l5 4" /><path d="M4 12h10a6 6 0 0 1 6 6v1" /></>);
+const SmileIcon = () => svg(<><circle cx="12" cy="12" r="9" /><path d="M8.5 14a4 4 0 0 0 7 0" /><path d="M9 9.5h.01M15 9.5h.01" /></>);
+const SearchIcon = () => svg(<><circle cx="11" cy="11" r="6.5" /><path d="M20 20l-4.4-4.4" /></>);
+const PowerIcon = () => svg(<><path d="M12 3v8" /><path d="M7 6.3a8 8 0 1 0 10 0" /></>);
 const PhoneIcon = () => svg(<><rect x="7" y="2.5" width="10" height="19" rx="2.5" /><path d="M11 18.5h2" /></>);
 const ProtocolIcon = () => svg(<><circle cx="6" cy="6" r="2.5" /><circle cx="18" cy="6" r="2.5" /><circle cx="12" cy="18" r="2.5" /><path d="M6 8.5v3a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2v-3M12 13.5v2" /></>);

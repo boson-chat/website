@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'preact/hooks';
-import pkg from '../../package.json';
 
 /**
  * The website deploys to Cloudflare on every push to main, in parallel
@@ -15,9 +14,13 @@ import pkg from '../../package.json';
  * doesn't keep hitting the API, and we fall back to the build-time
  * version if the fetch fails (offline preview, network blocked, API
  * rate limit, etc.).
+ *
+ * The fallback has no version (this site's own package.json version has
+ * nothing to do with the app's), so pages show "latest" until the API
+ * answers: see versionLabel.
  */
 export interface LatestRelease {
-  version: string;        // "0.1.0" — no leading v
+  version: string;        // "0.1.0" — no leading v; '' until known
   releaseDate: string;    // "2026-05-27" — ISO date, no time
   url: string;            // https URL to the release page on GitHub
   source: 'github' | 'package';
@@ -34,7 +37,7 @@ interface CachedEntry {
 
 function buildFallback(): LatestRelease {
   return {
-    version: pkg.version,
+    version: '',
     releaseDate: '',
     url: `https://github.com/${REPO}/releases/latest`,
     source: 'package',
@@ -63,6 +66,11 @@ function writeCache(payload: LatestRelease): void {
     // sessionStorage can throw in private-browsing or quota-exceeded —
     // not worth surfacing, the fetch path still works without cache.
   }
+}
+
+/** "v0.104.6", or "latest" while the version isn't known. */
+export function versionLabel(r: Pick<LatestRelease, 'version'>): string {
+  return r.version ? `v${r.version}` : 'latest';
 }
 
 export function useLatestRelease(): LatestRelease {

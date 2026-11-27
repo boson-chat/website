@@ -28,7 +28,7 @@ export function SiteFooter() {
               <span>Boson</span>
             </a>
             <p class="foot-tag">
-              Chat, voice and video for IRC servers. Identity in the client, plumbing in the open.
+              Chat, voice and video for IRC servers, and a server stack to run your own. Plumbing in the open.
             </p>
           </div>
           <div class="foot-col">
@@ -44,7 +44,8 @@ export function SiteFooter() {
             <h4>Using Boson</h4>
             <ul>
               <li><a href="/docs#join-directory">Join from the directory</a></li>
-              <li><a href="/docs#add-manual">Add a server manually</a></li>
+              <li><a href="/docs#add-manual">Add a server by address</a></li>
+              <li><a href="/docs#notifications">Notifications &amp; push</a></li>
               <li><a href="/docs#commands">Slash commands</a></li>
             </ul>
           </div>
@@ -53,6 +54,7 @@ export function SiteFooter() {
             <ul>
               <li><a href="/operators">For operators</a></li>
               <li><a href="/self-host">Self-host Boson</a></li>
+              <li><a href="/self-host/features">What you get</a></li>
               <li><a href="/self-host/new-server">New server guide</a></li>
               <li><a href="/self-host/existing-irc">Add to your IRC server</a></li>
               <li><a href="/operators#how">List your network</a></li>
@@ -69,7 +71,7 @@ export function SiteFooter() {
           </div>
         </div>
         <div class="row-between foot-base">
-          <span>© Boson · 2026 · A directory and a client.</span>
+          <span>© Boson · 2026 · A client, a server stack and a directory.</span>
           <span class="meta">Built on IRC. RFC 1459 · RFC 2812 · IRCv3.</span>
         </div>
       </div>
