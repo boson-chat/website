@@ -8,6 +8,10 @@ import { DownloadPage } from './pages/DownloadPage';
 import { FeaturesPage } from './pages/FeaturesPage';
 import { NotFoundPage } from './pages/NotFoundPage';
 import { OperatorsPage } from './pages/OperatorsPage';
+import { SelfHostPage } from './pages/selfhost/SelfHostPage';
+import { NewServerPage } from './pages/selfhost/NewServerPage';
+import { ExistingIrcPage } from './pages/selfhost/ExistingIrcPage';
+import { SelfHostFeaturesPage } from './pages/selfhost/SelfHostFeaturesPage';
 import { SiteHeader } from './components/SiteHeader/SiteHeader';
 import { SiteFooter } from './components/SiteFooter/SiteFooter';
 import { usePageTransitions } from './hooks/usePageTransitions';
@@ -43,6 +47,10 @@ function AppShell() {
           <Route path="/docs" component={DocsPage} />
           <Route path="/download" component={DownloadPage} />
           <Route path="/operators" component={OperatorsPage} />
+          <Route path="/self-host" component={SelfHostPage} />
+          <Route path="/self-host/new-server" component={NewServerPage} />
+          <Route path="/self-host/existing-irc" component={ExistingIrcPage} />
+          <Route path="/self-host/features" component={SelfHostFeaturesPage} />
           <Route default component={NotFoundPage} />
         </Router>
       </main>

@@ -1,0 +1,168 @@
+/* /self-host/*: the self-hosting guides. Builds on DocsPage.css. */
+
+.sh-hero h1 { max-width: 24ch; }
+.sh-lead { margin-top: 20px; }
+.sh-lead p { margin: 0; }
+.sh-lead p + p { margin-top: 12px; }
+
+.sh-tabs { margin-top: 32px; border-bottom: 1px solid var(--border); }
+.sh-tabs ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  gap: 4px 24px;
+  flex-wrap: wrap;
+}
+.sh-tabs a {
+  display: inline-block;
+  padding: 10px 0;
+  margin-bottom: -1px;
+  font-size: 14px;
+  color: var(--fg-2);
+  border-bottom: 2px solid transparent;
+  transition: color var(--motion-fast) var(--ease);
+}
+.sh-tabs a:hover { color: var(--fg); }
+.sh-tabs a[aria-current='page'] { color: var(--fg); border-bottom-color: var(--accent); }
+
+/* The sidebar's group titles: same look as the /docs h4s, but h2 for a
+   correct outline (the page's h1 is followed by the sidebar). */
+.sh-toc-title {
+  font-size: 12px;
+  font-family: var(--font-mono);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin: 0 0 12px;
+  font-weight: 500;
+}
+.sh-page .docs-sidebar a { color: var(--fg-3); }
+.sh-page .docs-sidebar a:hover,
+.sh-page .docs-sidebar a.active { color: var(--fg); }
+
+.sh-page .doc-section { scroll-margin-top: 24px; }
+.sh-page .doc-section h3 { font-size: 17px; }
+.sh-page .doc-section p.muted,
+.sh-page .doc-section li .muted { color: var(--fg-2); }
+.sh-page .doc-callout { color: var(--fg-2); }
+
+.sh-k {
+  font-family: var(--font-mono);
+  font-size: 0.88em;
+  background: var(--surface-raised);
+  border: 1px solid var(--border-soft);
+  border-radius: var(--radius-sm);
+  padding: 1px 5px;
+  overflow-wrap: anywhere;
+}
+
+.sh-table-wrap {
+  margin: 20px 0;
+  overflow-x: auto;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  max-width: 100%;
+}
+.sh-table-wrap:focus-visible { box-shadow: var(--focus-ring); }
+.sh-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+  line-height: 1.5;
+}
+.sh-table caption {
+  text-align: left;
+  padding: 10px 14px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--fg-3);
+  border-bottom: 1px solid var(--border);
+}
+.sh-table th,
+.sh-table td {
+  text-align: left;
+  vertical-align: top;
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--border-soft);
+}
+.sh-table thead th {
+  font-weight: 500;
+  color: var(--fg-2);
+  background: var(--surface);
+  font-size: 13px;
+}
+.sh-table tbody th { font-weight: 500; color: var(--fg); white-space: nowrap; }
+.sh-table td { color: var(--fg-2); min-width: 14ch; }
+.sh-table tr:last-child th,
+.sh-table tr:last-child td { border-bottom: 0; }
+
+/* Overview: the two paths side by side. */
+.sh-paths {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--gap-md);
+}
+.sh-paths .bds-card { height: 100%; display: flex; flex-direction: column; }
+.sh-path h2 { font-size: 22px; margin: 8px 0 12px; }
+.sh-path p { color: var(--fg-2); margin: 0 0 16px; line-height: 1.6; }
+.sh-path ul { margin: 0 0 20px; padding-left: 18px; color: var(--fg-2); line-height: 1.7; font-size: 15px; }
+.sh-path .btn { margin-top: auto; align-self: flex-start; }
+.sh-path-body { display: flex; flex-direction: column; height: 100%; }
+
+.sh-block + .sh-block { margin-top: var(--gap-xl); }
+.sh-block > h2 { margin-bottom: 16px; }
+.sh-block > p { color: var(--fg-2); max-width: 72ch; line-height: 1.65; margin: 0 0 16px; }
+
+/* Features page: one card per feature. */
+.sh-features {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--gap-md);
+}
+.sh-features > li { display: grid; }
+.sh-feature { display: flex; flex-direction: column; height: 100%; }
+.sh-feature h3 { margin: 0 0 10px; font-family: var(--font-display); font-size: 16px; font-weight: 600; }
+.sh-feature p { margin: 0 0 12px; color: var(--fg-2); font-size: 15px; line-height: 1.6; }
+.sh-feature ul { margin: 0 0 12px; padding-left: 18px; color: var(--fg-2); font-size: 14px; line-height: 1.65; }
+.sh-feature .sh-where {
+  margin: auto 0 0;
+  padding-top: 12px;
+  border-top: 1px solid var(--border-soft);
+  font-size: 13px;
+  color: var(--fg-3);
+}
+.sh-feature .sh-where strong { color: var(--fg-2); font-weight: 500; }
+
+@media (max-width: 920px) {
+  .sh-paths,
+  .sh-features { grid-template-columns: 1fr; }
+}
+@media (max-width: 560px) {
+  .sh-tabs ul { gap: 0 18px; flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; }
+  .sh-tabs li { flex: none; }
+  .sh-tabs a { font-size: 13px; }
+  .codeblock-pre { padding: 14px; font-size: 12px; }
+}
+
+.sh-list { margin: 0 0 8px; padding-left: 20px; color: var(--fg-2); line-height: 1.75; max-width: 78ch; }
+.sh-block > p a.docs-link,
+.sh-path a.docs-link { color: var(--accent); }
+
+/* Long code lines and tables scroll inside their own boxes, never the page. */
+.sh-page .docs-body { min-width: 0; }
+@media (max-width: 920px) {
+  .sh-page .docs-grid { grid-template-columns: minmax(0, 1fr); }
+}
+
+.sh-page.sh-hero { padding-bottom: 0; }
+.sh-page.sh-hero .sh-lead { margin-top: 24px; color: var(--fg-2); max-width: 64ch; }
+.sh-page.docs-content { padding-top: 48px; border-top: 0; }
+.doc-section ul.sh-features { padding: 0; max-width: none; margin-top: 24px; }
+.doc-section .sh-feature ul { padding-left: 18px; }
+.doc-section .sh-feature ul li { margin-bottom: 4px; }
