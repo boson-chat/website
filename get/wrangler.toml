@@ -5,4 +5,6 @@ name = "boson-get"
 main = "worker.js"
 compatibility_date = "2024-12-01"
 workers_dev = false
-routes = [{ pattern = "get.boson.chat", custom_domain = true }]
+# The get.boson.chat custom domain is attached in the Cloudflare dashboard
+# (Workers > boson-get > Domains): the CI token can deploy scripts but not
+# edit the zone's routes. No `routes` here, so `wrangler deploy` leaves it be.
