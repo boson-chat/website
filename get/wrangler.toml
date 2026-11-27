@@ -1,0 +1,8 @@
+# get.boson.chat: `curl -fsSL https://get.boson.chat | sudo sh` gets the
+# stack's install.sh; a browser gets a short page with that command.
+# Deployed by .github/workflows/deploy.yml (job "get") on push to main.
+name = "boson-get"
+main = "worker.js"
+compatibility_date = "2024-12-01"
+workers_dev = false
+routes = [{ pattern = "get.boson.chat", custom_domain = true }]
