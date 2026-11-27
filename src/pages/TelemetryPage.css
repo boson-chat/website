@@ -1,0 +1,12 @@
+/* /telemetry: the bucket list, as a row of chips that wraps on phones. */
+.tm-buckets {
+  list-style: none;
+  padding: 0 !important;
+  margin: 0 0 16px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.tm-buckets li { margin: 0 !important; }
+
+.tm-attrib { margin-top: 24px; }

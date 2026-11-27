@@ -97,6 +97,11 @@ export function SelfHostPage() {
           It starts the wizard on <K>https://&lt;server-ip&gt;:8443</K> with a one-time code.
           Prefer to read it first? <a class="docs-link" href="https://get.boson.chat/install.sh" rel="noopener">get.boson.chat/install.sh</a>.
         </p>
+        <p class="muted">
+          The admin panel sends anonymous <a class="docs-link" href="/telemetry">usage &amp; health
+          stats</a> once a day (no names, messages or hostnames). Turn them off in the panel’s
+          Settings, with <K>TELEMETRY=off</K> in <K>.env</K>, or in the setup wizard.
+        </p>
       </div>
     </GuideLayout>
   );

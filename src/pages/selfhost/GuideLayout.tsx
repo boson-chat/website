@@ -23,6 +23,8 @@ interface GuideLayoutProps {
   title: string;
   lead: ComponentChildren;
   toc?: TocGroup[];
+  /** Show the self-host tabs under the hero (default true). */
+  tabs?: boolean;
   children: ComponentChildren;
 }
 
@@ -49,7 +51,7 @@ export function SelfHostTabs() {
  * scrollspy, as on /docs. Sections in `children` are `<article
  * class="doc-section" id=…>` whose ids match `toc`.
  */
-export function GuideLayout({ eyebrow, title, lead, toc, children }: GuideLayoutProps) {
+export function GuideLayout({ eyebrow, title, lead, toc, tabs = true, children }: GuideLayoutProps) {
   const ids = toc ? toc.flatMap((g) => g.items.map((i) => i.id)) : [];
   const active = useScrollSpy(ids);
 
@@ -69,7 +71,7 @@ export function GuideLayout({ eyebrow, title, lead, toc, children }: GuideLayout
           <p class="eyebrow">{eyebrow}</p>
           <h1>{title}</h1>
           <div class="lead sh-lead">{lead}</div>
-          <SelfHostTabs />
+          {tabs ? <SelfHostTabs /> : null}
         </div>
       </section>
       <section class="section docs-content sh-page">
