@@ -288,6 +288,11 @@ export function PushSection({ addon }: ModeProps) {
         </li>
         <li>Accounts only, federated ones included; guests don’t get push.</li>
         <li>
+          On the people’s side: browser push works in the web client today. Phone push needs an
+          app build with it, and the Android APK on the releases page doesn’t have it yet; the
+          desktop app notifies while it’s running and doesn’t take push.
+        </li>
+        <li>
           {addon
             ? 'The bridge sends them (evrd 0.62 or later, the stack’s default). An older add-on install gets it by updating evrd from the admin panel.'
             : 'Ergo sends them for always-on accounts (on by default), 20 seconds after the message, and not if it was read on another device meanwhile.'}

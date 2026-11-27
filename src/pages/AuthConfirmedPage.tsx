@@ -33,7 +33,7 @@ export function AuthConfirmedPage() {
         </p>
         <div class="hero-cta" style="justify-content: center; margin-top: 24px;">
           <a class="btn btn-primary" href="/download">
-            Download Boson v{release.version}
+            Download Boson{release.version ? ` v${release.version}` : ''}
           </a>
         </div>
       </div>

@@ -12,6 +12,8 @@ const DOC_SECTION_IDS = [
   'join-directory',
   'add-manual',
   'channels',
+  'messages',
+  'notifications',
   'commands',
   'voice',
   'uploads',
@@ -39,7 +41,8 @@ export function DocsPage() {
           <h1 style="max-width: 22ch;">How to use Boson — and how to plug your server in.</h1>
           <p class="lead" style="margin-top: 20px;">
             Two parts: using the app day-to-day, and listing your own IRC daemon in the network
-            directory at directory.boson.chat.
+            directory at directory.boson.chat. Running Boson's server side yourself? That's in
+            the <a href="/self-host" class="docs-link">self-host guides</a>.
           </p>
         </div>
       </section>
@@ -52,8 +55,10 @@ export function DocsPage() {
               <ul>
                 <li><a href="#install"        class={linkClass('install')}>Install &amp; sign in</a></li>
                 <li><a href="#join-directory" class={linkClass('join-directory')}>Join from the directory</a></li>
-                <li><a href="#add-manual"     class={linkClass('add-manual')}>Add a server manually</a></li>
+                <li><a href="#add-manual"     class={linkClass('add-manual')}>Add a server by address</a></li>
                 <li><a href="#channels"       class={linkClass('channels')}>Channels &amp; DMs</a></li>
+                <li><a href="#messages"       class={linkClass('messages')}>Replies, threads &amp; reactions</a></li>
+                <li><a href="#notifications"  class={linkClass('notifications')}>Notifications &amp; push</a></li>
                 <li><a href="#commands"       class={linkClass('commands')}>Slash commands</a></li>
                 <li><a href="#voice"          class={linkClass('voice')}>Voice &amp; video</a></li>
                 <li><a href="#uploads"        class={linkClass('uploads')}>Uploading files</a></li>
@@ -71,7 +76,7 @@ export function DocsPage() {
               </ul>
               <h4>Reference</h4>
               <ul>
-                <li><a href="#ref-sasl"   class={linkClass('ref-sasl')}>SASL requirements</a></li>
+                <li><a href="#ref-sasl"   class={linkClass('ref-sasl')}>SASL &amp; sign-in</a></li>
                 <li><a href="#ref-tls"    class={linkClass('ref-tls')}>TLS &amp; port choices</a></li>
                 <li><a href="#ref-delist" class={linkClass('ref-delist')}>Removal &amp; appeals</a></li>
               </ul>
@@ -107,17 +112,26 @@ export function DocsPage() {
                 </p>
                 <ul>
                   <li>
-                    <strong>Sign in (or sign up).</strong> Creates a Boson account. Your identity
-                    secret is generated locally and stored encrypted with a key derived from your
-                    password; the directory only ever sees ciphertext.
+                    <strong>Sign in (or sign up).</strong> A boson.chat account, or an account on
+                    another Boson server (change the server on the sign-in screen), with single
+                    sign-on where the server offers it. Forgot your password? The <strong>Forgot
+                    password?</strong> link emails you a reset link. Your account also has an identity
+                    key, made on your device and stored only encrypted, which locks the NickServ and
+                    bouncer logins you save; save the recovery code you're shown, as it's the way
+                    back into that key if you lose your password.
                   </li>
                   <li>
-                    <strong>Continue as guest.</strong> Skip the account. You can still join
-                    servers from the directory — they're keyed to a one-time guest identity
-                    that disappears when you sign out. You can promote a guest session to a full
-                    account later without losing your joined servers.
+                    <strong>Continue as guest.</strong> Skip the account and pick a nick. You can
+                    still join servers from the directory. Switching to an account later signs the
+                    guest out: its servers and history are cleared from the device.
                   </li>
                 </ul>
+                <p>
+                  On another Boson server that accepts it, <strong>Continue as
+                  alice@boson.chat</strong> signs you in there with your home account: no new
+                  sign-up, and your password stays with your home server.
+                </p>
+
                 <div class="doc-callout">
                   <strong>On macOS:</strong> since v0.32.1 Boson is signed with an Apple Developer
                   ID and notarized, so it opens without Gatekeeper warnings. Upgrading from an
@@ -148,34 +162,27 @@ export function DocsPage() {
 
               <article class="doc-section" id="add-manual">
                 <p class="eyebrow">03</p>
-                <h2>Add a server manually <Badge tone="info">Advanced mode</Badge></h2>
+                <h2>Add a server by address.</h2>
                 <p>
                   If the server you want to connect to isn't in the directory — your own private
                   network, a friend's daemon, a local <span class="num">ergo</span> you're testing
-                  against — use Advanced mode. The server is stored locally on your machine only;
-                  nothing about it is sent to the Boson backend.
+                  against — add it by address. The server is stored on this device only; nothing
+                  about it is sent to the directory.
                 </p>
                 <ol class="step-list">
                   <li>
-                    <h3>Open the Directory screen.</h3>
+                    <h3>Open the directory and click Add by address.</h3>
                     <p class="muted">
-                      Click <strong>Directory</strong> in the left rail.
-                    </p>
-                  </li>
-                  <li>
-                    <h3>Toggle Advanced mode.</h3>
-                    <p class="muted">
-                      In the top-right of the Directory header, click the{' '}
-                      <strong>Advanced</strong> toggle. A new <strong>Add server</strong> button
-                      appears, and any locally-added servers are marked with a{' '}
-                      <span class="num">LOCAL</span> chip + a Remove control.
+                      The button sits at the end of the filter row (under the search box on
+                      phones). Servers you add show in the list with a{' '}
+                      <span class="num">LOCAL</span> chip and a Remove control.
                     </p>
                     <ScreenshotFrame
                       src="/screenshots/06-directory-advanced.png"
-                      alt="Directory screen with Advanced toggle highlighted and an Add server button visible in the header."
-                      caption="DIRECTORY · Advanced toggle"
-                      width={1280}
-                      height={720}
+                      alt="The server directory: a search box, language filters, Show NSFW and Add by address in the filter row, and verified network cards."
+                      caption="DIRECTORY · Add by address"
+                      width={1440}
+                      height={900}
                     />
                   </li>
                   <li>
@@ -183,22 +190,24 @@ export function DocsPage() {
                     <p class="muted">
                       Defaults are <span class="num">6697</span> + TLS on. Both are sensible for
                       virtually every modern IRCd. Display name defaults to the hostname if you
-                      leave it blank.
+                      leave it blank. <strong>More options</strong> has the rest: TLS off, accepting
+                      a self-signed certificate, a server password, a SASL account and password, or
+                      a NickServ password.
                     </p>
                     <ScreenshotFrame
                       src="/screenshots/07-directory-add-server.png"
-                      alt="Add server form with hostname, port, display name fields and a TLS toggle."
-                      caption="DIRECTORY · Add server form"
-                      width={1280}
-                      height={720}
+                      alt="The Add a server by address dialog: hostname, port, display name and More options."
+                      caption="DIRECTORY · Add a server by address"
+                      width={1440}
+                      height={900}
                     />
                   </li>
                   <li>
                     <h3>Click Add server, then Connect on the new card.</h3>
                     <p class="muted">
-                      The server appears in the merged directory list immediately. Connecting uses
-                      the same path as a directory server — SASL PLAIN over TLS, auto-join
-                      whatever the server's auto-join is, the works.
+                      The server appears in the merged directory list immediately and connects
+                      like any other, identifying you with the login you gave and joining the
+                      server's auto-join channels.
                     </p>
                   </li>
                 </ol>
@@ -227,8 +236,50 @@ export function DocsPage() {
                 </p>
               </article>
 
-              <article class="doc-section" id="commands">
+              <article class="doc-section" id="messages">
                 <p class="eyebrow">05</p>
+                <h2>Replies, threads and reactions.</h2>
+                <p>
+                  Hover a message (long-press on phones) for its toolbar: <strong>Reply</strong>,
+                  a reaction, <strong>View thread</strong> and, where you may,{' '}
+                  <strong>Delete</strong>. A reply to a reply stays in the first message's thread;
+                  the timeline shows "N replies" under it, and the thread opens in its own panel
+                  with its own composer.
+                </p>
+                <ul>
+                  <li><strong>Replies</strong> carry the IRCv3 <span class="num">+draft/reply</span> tag where the server relays it, and always start with a quoted line (<span class="num">nick: "quote…"</span>), so people on classic clients can follow them. A line that only starts with <span class="num">nick:</span> is a mention, not a reply.</li>
+                  <li><strong>Reactions</strong> (<span class="num">+draft/react</span>) show as chips under the message; tap yours to take it back. They need a server that relays message tags; classic clients don't see them.</li>
+                  <li><strong>Deleting</strong> needs a server that allows it (Boson servers do): your own messages, or anyone's in a channel where you're an op. Guests can't delete.</li>
+                  <li><strong>Read markers</strong>: what you've read syncs between your devices where the server supports <span class="num">draft/read-marker</span>, so unread counts survive closing the app.</li>
+                  <li><strong>Search</strong> a conversation; it pages back through the server's history where the server keeps one.</li>
+                </ul>
+              </article>
+
+              <article class="doc-section" id="notifications">
+                <p class="eyebrow">06</p>
+                <h2>Notifications and push.</h2>
+                <p>
+                  By default channels notify you of mentions and DMs of every message. Change it in{' '}
+                  <strong>Server settings → Notifications</strong> (all, mentions or nothing per
+                  server, and per conversation), or for one channel from its menu. These settings
+                  follow your account to your other devices.
+                </p>
+                <p>
+                  <strong>When Boson is closed</strong>, in User settings → Notifications, turns on
+                  push for each Boson server you're signed in to with an account. The server then
+                  sends DMs and mentions, encrypted to your device, while none of your devices is
+                  connected; it waits 20 seconds and skips what you read elsewhere meanwhile.
+                </p>
+                <ul>
+                  <li><strong>Web app:</strong> browser push, today.</li>
+                  <li><strong>Phones:</strong> push through the relay at boson.chat is built into the app, but the Android build on the downloads page doesn't include it yet, and the iOS app is still in testing.</li>
+                  <li><strong>Desktop app:</strong> notifies you while it's running; push while it's closed comes later.</li>
+                  <li>Guests, and networks that aren't Boson servers, don't get push.</li>
+                </ul>
+              </article>
+
+              <article class="doc-section" id="commands">
+                <p class="eyebrow">07</p>
                 <h2>Slash commands.</h2>
                 <p>
                   Boson handles the day-to-day chat surface without commands, but the classic IRC
@@ -241,6 +292,11 @@ export function DocsPage() {
                   <li><span class="num">/me action</span> — send a CTCP ACTION ("emote").</li>
                   <li><span class="num">/away message</span> — mark yourself as away with a reason.</li>
                   <li><span class="num">/back</span> — clear your away status.</li>
+                  <li><span class="num">/nick newnick</span> — change your nick.</li>
+                  <li><span class="num">/topic text</span> — set the channel topic.</li>
+                  <li><span class="num">/whois nick</span> — who someone is.</li>
+                  <li><span class="num">/invite nick</span>, <span class="num">/kick nick</span>, <span class="num">/ban nick</span>, <span class="num">/op nick</span>, <span class="num">/voice nick</span> — channel operator verbs.</li>
+                  <li><span class="num">/raw LINE</span> — send a raw IRC line.</li>
                   <li><span class="num">/clear</span> — clear the current channel's message buffer.</li>
                   <li><span class="num">/help</span> — list every command Boson knows.</li>
                 </ul>
@@ -251,7 +307,7 @@ export function DocsPage() {
               </article>
 
               <article class="doc-section" id="voice">
-                <p class="eyebrow">06</p>
+                <p class="eyebrow">08</p>
                 <h2>Voice and video.</h2>
                 <p>
                   Voice is per network: Boson finds a network's voice server through its{' '}
@@ -270,19 +326,21 @@ export function DocsPage() {
                 <ul>
                   <li><strong>Talking</strong> — open mic (with a sensitivity slider and a mic test) or push to talk, in <strong>User settings → Voice</strong>. Quality is Standard, High or Music.</li>
                   <li><strong>Camera</strong> — every voice channel is also a video channel. Turn your camera on from the call controls; the stage shows one person large (click a tile to pin it) or a grid.</li>
-                  <li><strong>Screen sharing</strong> — desktop only. Pick a screen or window; on macOS 13+ you can share its sound as well.</li>
+                  <li><strong>Screen sharing</strong> — from the macOS and Windows apps (pick a screen or window; on macOS 13+ you can share its sound as well) and from the web app, with the browser's own picker. The Linux app watches video and screens but doesn't send a camera or screen yet.</li>
+                  <li><strong>The web app</strong> — calls need Chrome, Edge or Firefox (WebTransport).</li>
+                  <li><strong>Private calls</strong> — call a friend one to one, on the same network. It rings while their app is open; missed calls show next time.</li>
                   <li><strong>Phones</strong> — the call bar sits over the chat; tap it for the call screen, with speaker or earpiece, camera flip and the people in the call. The call keeps going with the screen locked.</li>
                   <li><strong>Guests</strong> — if a network allows guests in voice, people without an account can join too, marked <span class="num">guest</span>.</li>
                 </ul>
                 <div class="doc-callout">
-                  <strong>Use headphones on desktop.</strong> The desktop app doesn't cancel echo
-                  yet, so speakers feed the room back to everyone. On Android and iOS the phone's
-                  own voice processing cancels echo.
+                  <strong>Use headphones in the desktop app.</strong> It doesn't cancel echo yet,
+                  so speakers feed the room back to everyone. On Android and iOS the phone's own
+                  voice processing cancels echo, and in the web app the browser's does.
                 </div>
               </article>
 
               <article class="doc-section" id="uploads">
-                <p class="eyebrow">07</p>
+                <p class="eyebrow">09</p>
                 <h2>Uploading files.</h2>
                 <p>
                   Drop files on a channel, or use the paperclip in the composer (the{' '}
@@ -298,11 +356,11 @@ export function DocsPage() {
               </article>
 
               <article class="doc-section" id="themes">
-                <p class="eyebrow">08</p>
+                <p class="eyebrow">10</p>
                 <h2>Themes and customization.</h2>
                 <p>
                   Every colour in Boson comes from its theme, so one choice restyles the whole app.
-                  Open <strong>Settings → Appearance</strong> and click a theme: it applies
+                  Open <strong>User settings → Appearance</strong> and click a theme: it applies
                   instantly and is remembered. Five are built in — <strong>Terminal</strong> (the
                   default), <strong>Daylight</strong> (light), <strong>Nord</strong>,{' '}
                   <strong>Solarized</strong>, and <strong>Phosphor</strong>. Themes you make or
@@ -342,7 +400,6 @@ export function DocsPage() {
                     <span class="num">hsl()</span>, <span class="num">oklch()</span>, or a name.
                   </li>
                   <li><strong>Base</strong> — dark or light. Anything a theme leaves out is filled in from Terminal or Daylight.</li>
-                  <li><strong>Corners</strong> — from square (0px) to round (12px).</li>
                   <li><strong>Font</strong> — Boson's own (Inter + JetBrains Mono) or your system's UI font.</li>
                   <li><strong>Nick colours</strong> — each nick gets its own hue; saturation and lightness set how loud they are.</li>
                 </ul>
@@ -375,7 +432,6 @@ export function DocsPage() {
                   <Line>&nbsp;&nbsp;<C tone="key">"base"</C>: <C tone="str">"dark"</C>,</Line>
                   <Line>&nbsp;&nbsp;<C tone="key">"colors"</C>: {'{'} <C tone="key">"accent"</C>: <C tone="str">"#e8590c"</C>, <C tone="key">"bg"</C>: <C tone="str">"#0b0a09"</C> {'}'},</Line>
                   <Line>&nbsp;&nbsp;<C tone="key">"nick"</C>: {'{'} <C tone="key">"saturation"</C>: <C tone="acc">62</C>, <C tone="key">"lightness"</C>: <C tone="acc">64</C> {'}'},</Line>
-                  <Line>&nbsp;&nbsp;<C tone="key">"radius"</C>: <C tone="acc">4</C>,</Line>
                   <Line>&nbsp;&nbsp;<C tone="key">"font"</C>: <C tone="str">"system"</C></Line>
                   <Line>{'}'}</Line>
                 </Terminal>
@@ -410,7 +466,7 @@ export function DocsPage() {
                   Run an IRC server? Register it in the directory yourself at{' '}
                   <a href="https://directory.boson.chat" class="docs-link">directory.boson.chat</a>{' '}
                   or from the client, verified by a DNS TXT record, no human reviewer in the loop.
-                  Any IRC server that speaks SASL over TLS can be listed. Questions?{' '}
+                  Any IRC server can be listed. Questions?{' '}
                   <a href="mailto:hi@boson.chat" class="docs-link">drop us a line</a>.
                 </p>
               </header>
@@ -419,28 +475,30 @@ export function DocsPage() {
                 <p class="eyebrow">01</p>
                 <h2>Before you start.</h2>
                 <p>
-                  The directory only lists servers that meet four bars. None of them are about
-                  hardware — they're about being a reachable, identifiable host that the Boson
-                  client can SASL into without surprises.
+                  The directory checks two things, and neither is about hardware or software:
                 </p>
                 <ul>
-                  <li>A hostname (no IP-only servers — they'll be rejected).</li>
-                  <li>TLS on a reachable port. Default is <span class="num">6697</span>, but any port works.</li>
-                  <li>SASL PLAIN over TLS. Anonymous-only servers can't list.</li>
-                  <li>Control of the DNS record for the hostname you want to register.</li>
+                  <li>A public hostname. IP addresses and single-label names are rejected.</li>
+                  <li>Control of the DNS records for that hostname.</li>
                 </ul>
+                <p>
+                  For Boson users to get the most out of your server, it should also have TLS on a
+                  reachable port (<span class="num">6697</span> by convention) with a certificate
+                  from a public CA, and SASL for account sign-in. See{' '}
+                  <a href="#ref-sasl" class="docs-link">SASL</a> and{' '}
+                  <a href="#ref-tls" class="docs-link">TLS</a> below.
+                </p>
                 <div class="doc-callout">
-                  <strong>About anonymity:</strong> the directory does not require server operators
-                  to identify themselves to us. It requires a DNS-verifiable hostname and a
-                  contact address for moderation reports — neither of which need to point to a
-                  real name.
+                  <strong>About anonymity:</strong> the directory doesn't ask who you are. Listing
+                  needs a Boson account and a DNS record, neither of which has to point to a real
+                  name.
                 </div>
               </article>
 
               <article class="doc-section" id="host-daemon">
                 <p class="eyebrow">02</p>
                 <h2>Pick an IRCd.</h2>
-                <p>Any daemon that speaks SASL over TLS will work. Three good starting points:</p>
+                <p>Any IRC daemon can be listed. Three good starting points:</p>
                 <div class="daemon-grid">
                   <Card>
                     <div class="daemon-card rec">
@@ -473,9 +531,10 @@ export function DocsPage() {
                   </Card>
                 </div>
                 <p class="muted">
-                  If you already run something else and it supports SASL — including older
-                  Charybdis, Solanum, ircu derivatives — it'll work. The Boson client connects
-                  with the same handshake regardless.
+                  If you already run something else (ngIRCd, Charybdis, Solanum, ircu derivatives),
+                  it'll work. Want Boson accounts, voice and the web app on your network too? The{' '}
+                  <a href="/self-host/existing-irc" class="docs-link">existing IRC server guide</a>{' '}
+                  adds them next to the server you have.
                 </p>
               </article>
 
@@ -549,8 +608,8 @@ export function DocsPage() {
                   <li><strong>Languages</strong> — at least one. Drives the language filter for users.</li>
                 </ul>
                 <p>
-                  NSFW servers must check the NSFW flag. The directory excludes them from
-                  default search; users opt in via a toggle.
+                  Adult servers must tick <strong>Adult content (18+)</strong>. The directory hides
+                  them unless someone turns on 18+ listings.
                 </p>
               </article>
 
@@ -623,43 +682,52 @@ export function DocsPage() {
 
               <article class="doc-section" id="ref-sasl">
                 <p class="eyebrow">Reference</p>
-                <h2>SASL requirements.</h2>
+                <h2>SASL and sign-in.</h2>
                 <p>
-                  Boson registers nicks for users automatically over SASL. Today the client
-                  negotiates <span class="num">PLAIN</span> over TLS — the simplest mechanism, and
-                  the one virtually every modern IRCd supports out of the box. Plaintext-on-wire
-                  isn't a concern because the channel itself is encrypted.
+                  How Boson signs you in depends on the network:
                 </p>
-                <p>
-                  There is no fallback to non-SASL nick registration — by design. If your daemon
-                  doesn't speak SASL at all, Boson won't connect.
+                <ul>
+                  <li>
+                    <strong>Boson servers</strong> (boson.chat, and anything running the Boson
+                    stack): SASL <span class="num">OAUTHBEARER</span> with a short-lived token from
+                    the network's account service, so the IRC server never sees your password.{' '}
+                    <span class="num">PLAIN</span> with your username and password is the fallback,
+                    and what other IRC clients use there.
+                  </li>
+                  <li>
+                    <strong>Other networks:</strong> SASL <span class="num">PLAIN</span> over TLS
+                    with the account and password you saved, or <span class="num">NickServ
+                    IDENTIFY</span> on connect where the network has no SASL. Atheme, Anope and Ergo
+                    services are detected automatically.
+                  </li>
+                  <li>
+                    <strong>No account:</strong> Boson connects anyway, as a guest under a nick.
+                  </li>
+                </ul>
+                <p class="muted">
+                  <span class="num">SCRAM-SHA-256</span> and <span class="num">EXTERNAL</span>{' '}
+                  (TLS client certificates) aren't supported.
                 </p>
-                <div class="doc-callout">
-                  <strong>Planned:</strong> <span class="num">SCRAM-SHA-256</span> and{' '}
-                  <span class="num">EXTERNAL</span> (TLS client-cert) are on the roadmap. We're
-                  shipping PLAIN-only first so we can finish identity hardening before adding
-                  mechanism complexity.
-                </div>
               </article>
 
               <article class="doc-section" id="ref-tls">
                 <p class="eyebrow">Reference</p>
                 <h2>TLS &amp; port choices.</h2>
                 <p>
-                  <strong>Port:</strong> the directory accepts any port.{' '}
+                  <strong>Port:</strong> any port works.{' '}
                   <span class="num">6697</span> is the convention; <span class="num">7000</span>{' '}
-                  and <span class="num">9999</span> are common alternatives. Avoid{' '}
-                  <span class="num">6667</span> — that's plaintext IRC, and the directory
-                  rejects non-TLS hostnames.
+                  and <span class="num">9999</span> are common alternatives. A listing can say TLS is
+                  off, but avoid it: on <span class="num">6667</span> and other plaintext ports,
+                  passwords and messages cross the network in the clear.
                 </p>
                 <p>
                   <strong>Certificate:</strong> standard public-CA certs are fine (Let's Encrypt is
-                  the typical path). Self-signed certs aren't supported — the Boson client
-                  validates them strictly.
+                  the typical path). Boson checks certificates; only for a server added by address
+                  can someone choose to accept a self-signed one, so don't count on that.
                 </p>
                 <p>
                   <strong>SNI:</strong> required. The hostname in the cert SAN must match the
-                  hostname users see in the directory (or, for Advanced-mode manual servers, the
+                  hostname users see in the directory (or, for a server added by address, the
                   hostname they typed in the form).
                 </p>
               </article>
@@ -674,12 +742,8 @@ export function DocsPage() {
                 <ul>
                   <li><strong>Operator request.</strong> Remove the listing yourself on directory.boson.chat or in the app.</li>
                   <li><strong>Lapsed verification.</strong> TXT record missing for &gt; 14 days. Add it back and the listing returns at the next weekly check.</li>
-                  <li><strong>Abuse.</strong> Repeated unreviewed reports tied to your server. We notify the contact address. Restoration is via the contact form.</li>
+                  <li><strong>Blocked.</strong> The directory's operators can block a listing, with a reason, for abuse. To appeal, write to <a href="mailto:hi@boson.chat" class="docs-link">hi@boson.chat</a>.</li>
                 </ul>
-                <p>
-                  The full moderation policy and appeals flow will live in{' '}
-                  <a href="/about" class="docs-link">About → moderation</a> once it's drafted.
-                </p>
               </article>
             </div>
           </div>

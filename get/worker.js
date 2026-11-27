@@ -44,8 +44,7 @@ function page() {
 <title>Install Boson</title>
 <meta name="description" content="Install a self-hosted Boson server with one command.">
 <style>
-:root{color-scheme:dark light;--bg:#0b0b0e;--fg:#e8e8ec;--muted:#9a9aa6;--box:#15151b;--border:#2a2a33;--accent:#f08a24}
-@media (prefers-color-scheme:light){:root{--bg:#fafafa;--fg:#17171c;--muted:#5c5c66;--box:#fff;--border:#ddd;--accent:#c0610a}}
+:root{color-scheme:dark;--bg:#070709;--fg:#e8e8ec;--muted:#9a9aa6;--box:#15151b;--border:#2a2a33;--accent:#f08a24}
 *{box-sizing:border-box}body{margin:0;min-height:100vh;display:grid;place-items:center;background:var(--bg);color:var(--fg);font:16px/1.55 Inter,system-ui,sans-serif;padding:24px 16px}
 main{max-width:640px;width:100%}h1{font:600 28px/1.2 "JetBrains Mono",ui-monospace,monospace;margin:0 0 8px}
 p{color:var(--muted);margin:0 0 20px}a{color:var(--accent)}
@@ -55,12 +54,12 @@ button{font:500 13px Inter,system-ui,sans-serif;background:var(--accent);color:#
 ol{color:var(--muted);padding-left:20px}li{margin:6px 0}
 </style></head><body><main>
 <h1>Install Boson</h1>
-<p>Chat, voice and video for your own community, self-hosted. On a fresh Linux server, run:</p>
+<p>Chat, voice and video for your own community, self-hosted: a new server, or Boson added to the IRC server you already run. On a Linux server, run:</p>
 <div class="cmd"><code id="c">${CMD}</code><button id="b" type="button">Copy</button></div>
 <ol>
 <li>It checks the server, installs Docker if needed, and starts the setup wizard.</li>
 <li>Open the address it prints and enter the one-time code.</li>
-<li>The wizard sets up your domain, certificates and admin account.</li>
+<li>The wizard sets up your domain, certificates, admin account and features.</li>
 </ol>
 <p><a href="/install.sh">View the script</a> · <a href="${DOCS_URL}">Setup guide</a> · <a href="https://boson.chat">boson.chat</a></p>
 </main><script>

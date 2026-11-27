@@ -324,16 +324,17 @@ export function DiscoverPage() {
         <div class="container">
           <h2 style="margin-bottom: 16px;">Don't have Boson yet?</h2>
           <p class="lead">
-            The "Open in Boson" buttons need the desktop client installed — it registers the{' '}
+            The "Open in Boson" buttons need the desktop app installed — it registers the{' '}
             <span class="num">boson://</span> URL scheme with your OS at install time. Grab it below and any
-            directory link on this page works as a one-click connect.
+            directory link on this page works as a one-click connect. In the web app or on Android, add a
+            network by its address instead.
           </p>
           <div class="hero-cta" style="justify-content: center;">
             <a class="btn btn-primary" href="/download">
-              Download Boson v{release.version}
+              Download Boson{release.version ? ` v${release.version}` : ''}
             </a>
             <a class="btn btn-secondary" href="/docs#add-manual">
-              Add a server manually
+              Add a server by address
             </a>
           </div>
         </div>

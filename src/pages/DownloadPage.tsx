@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'preact/hooks';
 import { Card, Badge } from '@boson/shared';
 import { Terminal, Line, C } from '../components/Terminal/Terminal';
-import { useLatestRelease } from '../hooks/useLatestRelease';
+import { useLatestRelease, versionLabel } from '../hooks/useLatestRelease';
 import './DownloadPage.css';
 
 type DetectedOS = 'mac' | 'windows' | 'linux' | 'android' | 'ios' | null;
@@ -46,7 +46,7 @@ export function DownloadPage() {
   const release = useLatestRelease();
   const releaseUrl = release.source === 'github'
     ? release.url
-    : `${REPO_URL}/releases/tag/v${release.version}`;
+    : LATEST_URL;
   const wrapClass = (target: DetectedOS) =>
     `dl-card-wrap${os === target ? ' featured' : ''}`;
   const cardVariant = (target: DetectedOS) => (os === target ? 'raised' : undefined);
@@ -57,7 +57,7 @@ export function DownloadPage() {
       <section class="section hero download-hero">
         <div class="container" style="max-width: 720px;">
           <p class="eyebrow">
-            Download · v{release.version}{release.releaseDate ? ` · ${release.releaseDate}` : ''}
+            Download · {versionLabel(release)}{release.releaseDate ? ` · ${release.releaseDate}` : ''}
           </p>
           <h1>Get Boson.</h1>
           <p class="lead" style="margin-top: 20px;">
@@ -123,7 +123,7 @@ export function DownloadPage() {
                       Download (.tar.gz)
                     </a>
                   </div>
-                  <span class="dl-bytes">The app, a .desktop entry and its icon</span>
+                  <span class="dl-bytes">The app, a .desktop entry and its icon. Calls: voice, and watching video; sending a camera or screen isn't in Linux builds yet</span>
                 </div>
               </Card>
             </article>
@@ -133,7 +133,7 @@ export function DownloadPage() {
             <a href={REPO_URL} rel="noopener" class="dl-source-link">
               github.com/boson-chat/boson
             </a>{' '}
-            · <a class="num" href={releaseUrl} rel="noopener">v{release.version}</a>
+            · <a class="num" href={releaseUrl} rel="noopener">{versionLabel(release)}</a>
             {release.releaseDate ? ` tagged ${release.releaseDate}` : ''} · AGPL-3.0
           </p>
         </div>
@@ -160,7 +160,8 @@ export function DownloadPage() {
                   </div>
                   <span class="dl-bytes">
                     Not on Google Play yet: allow installs from your browser or file manager when
-                    Android asks. Later updates install from inside the app.
+                    Android asks. Later updates install from inside the app. Push notifications
+                    aren't in this build yet.
                   </span>
                 </div>
               </Card>
@@ -192,7 +193,8 @@ export function DownloadPage() {
                   </div>
                   <span class="dl-bytes">
                     Nothing to install. Join as a guest and land in #lobby, or sign in with your
-                    boson.chat account. Voice and video calls work too.
+                    boson.chat account and get push notifications with the tab closed. Calls need
+                    Chrome, Edge or Firefox.
                   </span>
                 </div>
               </Card>
@@ -240,8 +242,8 @@ export function DownloadPage() {
               <ul>
                 <li>A recent Chrome, Edge, Firefox or Safari</li>
                 <li>Nothing to install; each visit runs the latest version</li>
-                <li>Microphone / camera permission for calls</li>
-                <li>Closing the tab disconnects (a bouncer keeps you online)</li>
+                <li>Calls: Chrome, Edge or Firefox (WebTransport), with microphone / camera permission</li>
+                <li>Signed in on a Boson server, you stay online after closing the tab; guests disconnect</li>
               </ul>
             </div>
           </div>
@@ -316,8 +318,8 @@ export function DownloadPage() {
               <p class="muted" style="margin-bottom: 12px;">
                 The app was rebuilt on a native webview, and earlier versions can't update
                 themselves to it. Download it from this page once and replace{' '}
-                <strong>Boson.app</strong> in /Applications, then sign in again. The app checks
-                for new releases and links you here when one is out.
+                <strong>Boson.app</strong> in /Applications, then sign in again. After that,
+                updates install from inside the app.
               </p>
             </div>
             <div>
@@ -353,11 +355,12 @@ export function DownloadPage() {
           <div>
             <ReleaseRow
               date={release.releaseDate || '—'}
-              title={`v${release.version} — latest`}
+              title={release.version ? `v${release.version} — latest` : 'The latest release'}
               platforms="macOS · Windows · Linux · Android"
             >
-              The current build for desktop and Android. Multi-server IRC chat, server directory,
-              voice and video channels, uploads, guest mode, with the Go IRC engine built in. See the{' '}
+              The current build for desktop and Android. Multi-server IRC chat with replies, threads
+              and reactions, the server directory, voice and video channels, uploads, guest mode and
+              sign-in with your account on other Boson servers, with the Go IRC engine built in. See the{' '}
               <a href={releaseUrl} rel="noopener">release page</a> for the full asset list and
               the changelog entry for what's new.
             </ReleaseRow>
@@ -376,7 +379,7 @@ export function DownloadPage() {
             <a class="btn btn-primary" href={LATEST_URL} rel="noopener">
               See all platforms on GitHub
             </a>
-            <a class="btn btn-secondary" href="/docs">Self-hosting guide</a>
+            <a class="btn btn-secondary" href="/self-host">Self-hosting guide</a>
           </div>
         </div>
       </section>

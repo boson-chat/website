@@ -49,7 +49,7 @@ export function AboutPage() {
               <div class="essay-meta">
                 <span>About</span>
                 <span>·</span>
-                <span>2026-05-27</span>
+                <span>Updated 2026-11-27</span>
                 <span>·</span>
                 <span>5 min read</span>
               </div>
@@ -67,7 +67,7 @@ export function AboutPage() {
                 independent server implementations. None of that has changed.
               </p>
               <p>
-                What changed is that almost nobody on it any more. The people you actually want
+                What changed is that almost nobody is on it any more. The people you actually want
                 to talk to have moved to vendor-hosted products — chat apps that demand an account
                 on a single company's servers, that go down when that company goes down, and that
                 gate access to the conversation behind that company's continued goodwill.
@@ -102,47 +102,51 @@ export function AboutPage() {
                 is the day you can leave without losing anything.
               </p>
 
-              <h3>2. Keep identity client-side.</h3>
+              <h3>2. Keep secrets where they belong.</h3>
               <p>
-                The directory holds a list of servers and an encrypted bag of bytes for each user.
-                We can't read the bag. Your platform password derives a key that unlocks it, locally,
-                on your machine. That key produces a unique credential for every server you join.
+                Your password stays with your account's own server. Boson servers sign you in to
+                IRC, voice and uploads with short-lived tokens; another Boson server gets your home
+                server's signed word that you're you, never your password.
               </p>
               <p>
-                The honest part: we never see your secret, so we can't reset it for you. What we give
-                you instead is a one-time recovery code — a second, independent wrap of the same bag.
-                Forget your password and the code unlocks it; lose both and it's gone for good. (Per-
-                server identity can still be reclaimed via NickServ.)
+                The logins you save for other networks (NickServ passwords, bouncers) are a different
+                kind of secret, so they get a different lock: an identity key made on your device,
+                which encrypts them before they sync. boson.chat holds that key only in encrypted
+                form. The honest part: we can reset your account password by email, but we can't
+                open that key for you. Your password opens it, and so does the one-time recovery
+                code you save; lose both and the saved logins are gone for good.
               </p>
 
-              <h3>3. Build a directory, not a network.</h3>
+              <h3>3. Index the open network, and make running your own easy.</h3>
               <p>
-                We don't run IRC servers. We index them. Self-hosters add a TXT record and they're
-                on the directory. If we vanish tomorrow, the network keeps running and your{' '}
-                <span class="num">weechat</span> setup keeps working — because the directory was
-                the only piece that depended on us.
+                boson.chat runs one network, on the same open-source stack anyone can install with
+                one command. Everyone else's networks are theirs: operators add a TXT record and
+                they're in the directory, and directories federate with each other. If we vanish
+                tomorrow, those networks keep running, Boson servers keep signing their own people
+                in, and your <span class="num">weechat</span> setup keeps working.
               </p>
               <p>
                 This is the part that took the longest to get right. The temptation is always to
-                hold more — host the daemons, run a "platform server," become the thing instead of
-                the thing-finder. We resisted, and we're going to keep resisting.
+                hold more — host everyone's daemons, run a "platform server," become the thing
+                instead of the thing-finder. We resisted, and we're going to keep resisting.
               </p>
 
               <h2 id="security">The security model in one diagram.</h2>
               <p>
-                Two things have to stay true for this to be honest. First, the directory cannot
-                recover your <span class="num">user_secret</span>. Second, a breach of one IRC
-                server cannot help an attacker on another. Both fall out of the same construction:
+                Two things have to stay true for this to be honest. First, boson.chat can't read
+                the logins you save for other networks. Second, a server you sign in to never needs
+                your password. Here's who holds what:
               </p>
 
               <div class="security-grid">
                 <Card>
                   <div class="sec-card-inner">
-                    <h4>What we hold</h4>
+                    <h4>What boson.chat holds</h4>
                     <p>
-                      An <strong>encrypted</strong> 32-byte secret per user. Encrypted with a key
-                      we don't possess and can't derive. Your handle, server links, and reports —
-                      also stored, also under per-table auth.
+                      Your account: email, username and a password hash. Your saved servers and
+                      synced settings. Your 32-byte identity key and your saved logins,{' '}
+                      <strong>only encrypted</strong>, with a key we don't possess and can't
+                      derive.
                     </p>
                   </div>
                 </Card>
@@ -150,9 +154,10 @@ export function AboutPage() {
                   <div class="sec-card-inner">
                     <h4>What you hold</h4>
                     <p>
-                      A platform password. From it, the local Go process derives the key that
-                      unlocks the secret. From the secret, we HMAC a unique password per server.{' '}
-                      <strong>Nothing crosses the network in the clear.</strong>
+                      Your password, and your recovery code. On your device, Argon2id turns the
+                      password into the key that unlocks the identity key; from the identity key,
+                      HMAC derives a separate key per network for its saved login.{' '}
+                      <strong>IRC servers get tokens, not your password.</strong>
                     </p>
                   </div>
                 </Card>
@@ -166,26 +171,28 @@ export function AboutPage() {
               <h2 id="not-doing">What we're deliberately not doing.</h2>
               <ul>
                 <li>
-                  <strong>A parallel metadata layer.</strong> Threads and reactions wait until IRC
-                  itself carries them. We are not going to build a hidden layer that secretly turns
-                  Boson into a non-IRC service that happens to use IRC for text transport. Voice and
-                  video, where a network offers them, run on separate open-source servers beside
-                  IRC — the text stays plain IRC, readable from any client.
+                  <strong>A parallel metadata layer.</strong> Replies, threads, reactions and read
+                  markers ride on IRCv3 message tags, on the IRC connection itself, and replies keep
+                  a quoted text line for classic clients. We are not going to build a hidden layer
+                  that secretly turns Boson into a non-IRC service that happens to use IRC for text
+                  transport. Voice and video, where a network offers them, run on separate
+                  open-source servers beside IRC — the text stays plain IRC, readable from any
+                  client.
                 </li>
                 <li>
-                  <strong>Hosted IRC servers.</strong> The directory only indexes. We've sketched a
-                  hosted offering for later — it's deferred, deliberately, until the directory side
-                  is solid.
+                  <strong>Hosting everyone's servers.</strong> boson.chat runs one network; for your
+                  own, there's the stack to install. We've sketched a hosted offering for later —
+                  it's deferred, deliberately, until the directory side is solid.
                 </li>
                 <li>
-                  <strong>A password-reset backdoor.</strong> We never hold a key to your secret, so
-                  we can't reset it. Recovery rides on a one-time code you save (and per-server NickServ
-                  reclaim) — never a switch we can flip.
+                  <strong>A key backdoor.</strong> A password reset gets you back into your account,
+                  but we never hold a key to your identity key, so we can't open your saved logins.
+                  Recovery rides on a one-time code you save — never a switch we can flip.
                 </li>
                 <li>
-                  <strong>Friends lists and cross-server social graphs.</strong> Profiles, yes. A
-                  search-engine-grade graph of who-talks-to-whom, no. Not in MVP, probably not
-                  after.
+                  <strong>Cross-server social graphs.</strong> Profiles and friends, yes: friends
+                  live with your account on its own network, for calling each other. A
+                  search-engine-grade graph of who-talks-to-whom across networks, no.
                 </li>
               </ul>
 
@@ -220,32 +227,43 @@ export function AboutPage() {
                     file uploads, network themes, channel registration, and an Android app (APK).
                   </span>
                 </li>
-                <li>
-                  <span class="when">Soon</span>
+                <li class="shipped">
+                  <span class="when">Shipped</span>
                   <span>
-                    <strong>The Boson stack and admin panel, for anyone.</strong> The server side
-                    boson.chat runs on — IRC, accounts, voice, video, files, a directory and an
-                    admin panel — packaged for your own domain. Coming soon; not installable yet.
+                    <strong>v0.82 – v0.104 — a chat app, everywhere.</strong> The web app at
+                    chat.boson.chat, friends and private calls, read markers, search, reactions,
+                    replies and threads, message deletion, browser push, and "Continue as
+                    alice@boson.chat" on other Boson servers.
+                  </span>
+                </li>
+                <li class="shipped">
+                  <span class="when">Shipped</span>
+                  <span>
+                    <strong>The Boson stack 1.0, for anyone.</strong> The server side boson.chat
+                    runs on — IRC, accounts, the web app, voice, video, files, push, a directory and
+                    an admin panel — on your own domain with one command, or next to the IRC server
+                    you already run. Versioned releases, with updates, backups and rollback from the
+                    admin panel.
                   </span>
                 </li>
                 <li>
                   <span class="when">Next</span>
                   <span>
-                    <strong>Identity hardening.</strong> Per-server password derivation in the
-                    local engine, encrypted-secret backup, guided reclaim via NickServ.
+                    <strong>Phones, further.</strong> The iOS app out of testing, phone push in the
+                    builds you can download, and screen sharing from phones.
                   </span>
                 </li>
                 <li>
                   <span class="when">After</span>
                   <span>
-                    <strong>Phones, further.</strong> The iOS app out of testing, screen sharing from
-                    phones, and push notifications for mentions while the app is closed.
+                    <strong>The desktop app, further.</strong> Push while it's closed, echo
+                    cancellation, and sending a camera and screen from Linux.
                   </span>
                 </li>
                 <li>
                   <span class="when">Later</span>
                   <span>
-                    <strong>Hosted IRCds in k8s.</strong> The paid path. Conditional on the
+                    <strong>Hosted Boson servers.</strong> The paid path. Conditional on the
                     directory being healthy, the protocol stays the same.
                   </span>
                 </li>
@@ -273,8 +291,9 @@ export function AboutPage() {
         <div class="container">
           <h2 style="margin-bottom: 16px;">Try Boson.</h2>
           <p class="lead">
-            A 110 MB download. About a minute from install to first message. Free, and if it ever
-            isn't, we'll tell you on this page first.
+            A 10 MB download on desktop, or nothing at all in your browser. About a minute from
+            install to first message. Free, and if it ever isn't, we'll tell you on this page
+            first.
           </p>
           <div class="hero-cta" style="justify-content: center;">
             <a class="btn btn-primary" href="/download">Download Boson</a>
