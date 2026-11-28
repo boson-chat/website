@@ -143,7 +143,7 @@ export function DownloadPage() {
         <div class="container stack" style="gap: 40px;">
           <div style="max-width: 46ch;">
             <p class="eyebrow">On your phone, or in a browser</p>
-            <h2>Android now. iOS later. The web today.</h2>
+            <h2>Android now. iPhone soon. The web today.</h2>
           </div>
           <div class="dl-grid">
             <article class={wrapClass('android')}>
@@ -170,12 +170,12 @@ export function DownloadPage() {
               <Card>
                 <div class="dl-card">
                   <AppleMobileIcon />
-                  <Badge tone="warn">In testing</Badge>
+                  <Badge tone="warn">Coming soon</Badge>
                   <h3>iPhone &amp; iPad</h3>
                   <span class="dl-arch">iOS 16+</span>
                   <span class="dl-bytes">
-                    The iOS app is being tested and isn't available to install yet — no App Store
-                    or TestFlight link for now.
+                    Coming soon to the App Store. Until then, the web app works in Safari on your
+                    iPhone or iPad: nothing to install.
                   </span>
                 </div>
               </Card>

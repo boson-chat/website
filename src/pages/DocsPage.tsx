@@ -102,8 +102,8 @@ export function DocsPage() {
                   a <span class="num">.dmg</span> for macOS, a <span class="num">.zip</span> for
                   Windows, a <span class="num">.tar.gz</span> for Linux, an{' '}
                   <span class="num">.apk</span> for Android 8.0+. Every build has the IRC engine
-                  built in — Go code that handles all network I/O. The iOS app is in testing and
-                  not available yet. To skip the install, open the web app at{' '}
+                  built in — Go code that handles all network I/O. The iPhone and iPad app is coming
+                  soon. To skip the install, open the web app at{' '}
                   <a href="https://chat.boson.chat" class="docs-link" rel="noopener">chat.boson.chat</a>{' '}
                   in Chrome, Edge, Firefox or Safari: the same app, run in the browser.
                 </p>
