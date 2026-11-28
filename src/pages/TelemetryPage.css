@@ -10,3 +10,7 @@
 .tm-buckets li { margin: 0 !important; }
 
 .tm-attrib { margin-top: 24px; }
+
+.tm-nowrap {
+  white-space: nowrap;
+}
