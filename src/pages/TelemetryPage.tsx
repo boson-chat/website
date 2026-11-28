@@ -25,6 +25,14 @@ const TOC: TocGroup[] = [
 
 const BUCKETS = ['0', '1', '2-10', '11-50', '51-100', '101-500', '501-1k', '1k-5k', '5k+'];
 
+// host_size buckets (memory and disk in GB; a "4 GB" server is 2–4).
+const HOST_SIZE: [string, string[]][] = [
+  ['CPU cores', ['1', '2', '3–4', '5–8', '9–16', '17–32', '33+']],
+  ['Memory (GB)', ['under 1', '1–2', '2–4', '4–8', '8–16', '16–32', '32–64', '64+']],
+  ['Disk (GB)', ['under 25', '25–50', '50–100', '100–250', '250–500', '500–1000', '1000+']],
+  ['Architecture', ['amd64', 'arm64', 'other']],
+];
+
 export function TelemetryPage() {
   return (
     <GuideLayout
@@ -76,6 +84,7 @@ export function TelemetryPage() {
             ['Update health', 'Updates started, failed and rolled back in the last day, and for each failure the step it failed at (backup, download, migration, health check…), never the error text.'],
             ['Service health', 'Each service’s state (running, restarting, unhealthy…) and restart count.'],
             ['Host health', 'With the metrics profile: CPU (p95 and peak), memory, disk used and load, as percentages, and days since the host booted.'],
+            ['Host size, bucketed', 'How big the server is, as ranges: CPU cores, memory, disk (the drive Docker keeps its data on, with the metrics profile) and architecture (amd64, arm64 or other). Never the exact figures, never the CPU model or anything else that identifies the machine. A part the panel can’t read is sent as unknown.'],
           ]}
         />
         <p>
@@ -86,6 +95,20 @@ export function TelemetryPage() {
             <li key={b}><K>{b}</K></li>
           ))}
         </ul>
+        <p>The host size is bucketed the same way:</p>
+        <DataTable
+          caption="Host size buckets"
+          head={['', 'Buckets']}
+          rows={HOST_SIZE.map(([name, buckets]) => [
+            name,
+            buckets.map((b, i) => (
+              <>
+                {i > 0 && ' · '}
+                <span class="tm-nowrap">{b}</span>
+              </>
+            )),
+          ])}
+        />
       </article>
 
       <article class="doc-section" id="apps">
@@ -117,6 +140,7 @@ export function TelemetryPage() {
           <li>channel names, topics, message content, per-person counts or who talks to whom;</li>
           <li>IP addresses, hostnames, domains, network names or URLs;</li>
           <li>secrets: passwords, tokens, keys, <K>.env</K> values, SSO client IDs;</li>
+          <li>exact hardware figures: the server’s cores, memory and disk are sent only as the ranges above, never exact values, and never a hostname, serial number or CPU model;</li>
           <li>free-text error messages or logs.</li>
         </ul>
         <p>
