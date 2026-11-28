@@ -272,9 +272,9 @@ function PhoneSection() {
           />
         </div>
         <div class="grid-3">
-          <FeatureCard title="Android, iOS in testing" icon={<PhoneIcon />}>
+          <FeatureCard title="Android now, iPhone soon" icon={<PhoneIcon />}>
             Android 8.0 and newer, as an APK from the releases page (not on Google Play yet) that
-            updates itself in-app. The iOS app is in testing and not available to install yet.
+            updates itself in-app. The iPhone and iPad app is coming soon; until then, the web app works in Safari.
           </FeatureCard>
           <FeatureCard title="Calls on the go" icon={<MicIcon />}>
             Voice and camera calls with the phone's own echo cancelling, speaker or earpiece,
